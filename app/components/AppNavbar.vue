@@ -1,11 +1,7 @@
 <template>
   <nav class="navbar">
     <NuxtLink to="/" class="logo-wrap">
-      <img src="/images/logo_asand.png" alt="Logo ASANDTT" class="logo-img" />
-      <div>
-        <span class="logo-name">ASANDTT Marseille</span>
-        <span class="logo-sub">Tennis de table</span>
-      </div>
+      <img src="/images/logo_asand3.png" alt="Logo ASANDTT" class="logo-img" />
     </NuxtLink>
 
     <ul class="nav-links">
@@ -42,7 +38,7 @@
   flex-shrink: 0;
 }
 .logo-img {
-  height: 44px;
+  height: 100px;
   width: auto;
   object-fit: contain;
 }
@@ -63,22 +59,29 @@
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 32px;
   list-style: none;
   position: absolute;
-  left: 50%;
+  left:55%;
   transform: translateX(-50%);
 }
 .nav-links a {
-  font-size: 15px;
-  letter-spacing: 1.2px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: #1455A4;
   text-decoration: none;
   padding: 8px 18px;
   border-radius: 7px;
   transition: all 0.15s ease;
-  font-weight: 700;
+  font-weight: 600;
+  font-stretch: condensed;
+}
+.nav-links li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .nav-links a:hover {
   background: #f0f5fb;
@@ -89,10 +92,12 @@
   background: #e8f0fb;
 }
 .nav-cta {
-  background: #1455A4 !important;
+  background: #3293d4 !important;
   color: #fff !important;
   border-radius: 20px !important;
-  padding: 10px 22px !important;
+  padding: 12px 28px !important;
+  white-space: nowrap !important;
+  font-size: 16px !important;
 }
 .nav-cta:hover {
   background: #0f3f85 !important;

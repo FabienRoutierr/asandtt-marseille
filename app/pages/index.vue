@@ -1,153 +1,315 @@
 <script setup>
-definePageMeta({
-  layout: 'default'
-})
+import { ref, onMounted, onUnmounted } from 'vue'
+
+definePageMeta({ layout: 'default' })
 
 useSeoMeta({
   title: 'ASANDTT Marseille — Tennis de table',
   description: 'Club de tennis de table à Marseille. Tous niveaux, tous âges. Loisir et compétition.',
 })
-</script>
 
+// --- STATS COUNTER ---
+const statsSection = ref(null)
+const counts = ref({ tables: 0, licencies: 0, equipes: 0, ans: 0 })
+const targets = { tables: 20, licencies: 200, equipes: 8, ans: 40 }
+
+function animateCount(key, target, duration = 2000) {
+  const start = performance.now()
+  const update = (now) => {
+    const elapsed = now - start
+    const progress = Math.min(elapsed / duration, 1)
+    const eased = 1 - Math.pow(1 - progress, 3)
+    counts.value[key] = Math.floor(eased * target)
+    if (progress < 1) requestAnimationFrame(update)
+    else counts.value[key] = target
+  }
+  requestAnimationFrame(update)
+}
+
+// --- PARTENAIRES CAROUSEL ---
+const partnerTrack = ref(null)
+const currentIndex = ref(0)
+const logoCount = 14
+const logoWidth = 180
+const gap = 64
+let autoplayInterval = null
+let isDragging = false
+let startX = 0
+let dragStartIndex = 0
+
+function getOffset(index) {
+  return index * (logoWidth + gap)
+}
+
+function goToIndex(index) {
+  // Boucle infinie
+  let i = index % logoCount
+  if (i < 0) i += logoCount
+  currentIndex.value = i
+
+  if (partnerTrack.value) {
+    partnerTrack.value.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    partnerTrack.value.style.transform = `translateX(-${getOffset(i)}px)`
+  }
+}
+
+function startAutoplay() {
+  stopAutoplay()
+  autoplayInterval = setInterval(() => {
+    goToIndex(currentIndex.value + 1)
+  }, 3000)
+}
+
+function stopAutoplay() {
+  if (autoplayInterval) clearInterval(autoplayInterval)
+}
+
+function onDragStart(e) {
+  e.preventDefault()
+  isDragging = true
+  startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX
+  dragStartIndex = currentIndex.value
+  stopAutoplay()
+  if (partnerTrack.value) {
+    partnerTrack.value.style.transition = 'none'
+  }
+}
+
+function onDragMove(e) {
+  if (!isDragging) return
+  e.preventDefault()
+  const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX
+  const diff = startX - x
+
+  // Déplacement fluide en temps réel
+  const currentOffset = getOffset(dragStartIndex)
+  if (partnerTrack.value) {
+    partnerTrack.value.style.transform = `translateX(-${currentOffset + diff}px)`
+  }
+}
+
+function onDragEnd(e) {
+  if (!isDragging) return
+  isDragging = false
+  const x = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX
+  const diff = startX - x
+
+  // Nombre de logos à skiper selon l'intensité du balayement
+  const skipped = Math.round(diff / (logoWidth + gap))
+  goToIndex(dragStartIndex + skipped)
+  startAutoplay()
+}
+
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        animateCount('tables', targets.tables)
+        animateCount('licencies', targets.licencies)
+        animateCount('equipes', targets.equipes)
+        animateCount('ans', targets.ans)
+        observer.disconnect()
+      }
+    },
+    { threshold: 0.3 }
+  )
+  if (statsSection.value) observer.observe(statsSection.value)
+  startAutoplay()
+})
+
+onUnmounted(() => {
+  stopAutoplay()
+})
+</script>
 <template>
   <div>
 
     <!-- HERO -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span>Club affilié FFTT · Marseille</span>
-        </div>
-        <h1>Plus qu'un club,<br/><em>une famille</em></h1>
-        <p>Rejoignez l'ASANDTT — 20 tables, tous niveaux, tous âges. Du loisir à la compétition, dans un grand gymnase au cœur de Marseille.</p>
-        <div class="hero-btns">
-          <NuxtLink to="/inscription" class="btn-primary">Nous rejoindre</NuxtLink>
-          <NuxtLink to="/club" class="btn-outline">Découvrir le club</NuxtLink>
-        </div>
-      </div>
-<div class="hero-img">
-  <ClubPhoto height="480px" alt="Gymnase ASANDTT Marseille" />
-</div>
-    </section>
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <img src="/images/photo_asand.png" alt="Gymnase ASANDTT Marseille" class="hero-bg" />
+  <div class="hero-content">
+    <h1>Le plus grand club<br/><strong>de Marseille</strong></h1>
+    <p>Rejoignez l'ASAND — 20 tables, tous niveaux, tous âges. Du loisir à la compétition, dans un grand gymnase au cœur de Marseille.</p>
+    <div class="hero-btns">
+      <NuxtLink to="/inscription" class="btn-primary">Nous rejoindre</NuxtLink>
+      <NuxtLink to="/association" class="btn-outline">Découvrir le club</NuxtLink>
+    </div>
+  </div>
+</section>
 
     <!-- STATS -->
-    <div class="stats-row">
-      <div class="stat">
-        <span class="stat-n">20</span>
-        <span class="stat-l">Tables</span>
-      </div>
-      <div class="stat">
-        <span class="stat-n">150+</span>
-        <span class="stat-l">Licenciés</span>
-      </div>
-      <div class="stat">
-        <span class="stat-n">5</span>
-        <span class="stat-l">Équipes</span>
-      </div>
-      <div class="stat">
-        <span class="stat-n">40+</span>
-        <span class="stat-l">Ans d'histoire</span>
-      </div>
-    </div>
+<!-- STATS -->
+<div class="stats-row" ref="statsSection">
+  <div class="stat">
+    <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+    <span class="stat-n">{{ counts.tables }}</span>
+    <span class="stat-l">Tables</span>
+  </div>
+  <div class="stat">
+    <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span class="stat-n">{{ counts.licencies }}+</span>
+    <span class="stat-l">Licenciés</span>
+  </div>
+  <div class="stat">
+    <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+    <span class="stat-n">{{ counts.equipes }}</span>
+    <span class="stat-l">Équipes</span>
+  </div>
+  <div class="stat">
+    <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span class="stat-n">{{ counts.ans }}+</span>
+    <span class="stat-l">Ans d'histoire</span>
+  </div>
+</div>
 
-    <!-- LE CLUB -->
-    <section class="section section-white">
-      <div class="section-inner">
-        <span class="section-tag">Le club</span>
-        <h2>Pratiquer, progresser, partager</h2>
-        <p class="section-intro">Une structure conviviale pour découvrir ou se perfectionner au tennis de table. Débutant ou compétiteur, nous vous accueillons dans une ambiance dynamique.</p>
-        <div class="cards-grid">
-          <div class="card">
-            <div class="card-icon">🏆</div>
-            <h3>Compétitions</h3>
-            <p>Championnats par équipes et individuels pour tous les niveaux.</p>
-            <NuxtLink to="/competitions" class="card-link">En savoir plus →</NuxtLink>
-          </div>
-          <div class="card">
-            <div class="card-icon">📅</div>
-            <h3>Entraînements</h3>
-            <p>Plusieurs créneaux par semaine, du lundi au vendredi.</p>
-            <NuxtLink to="/inscription" class="card-link">Voir le planning →</NuxtLink>
-          </div>
-          <div class="card">
-            <div class="card-icon">⭐</div>
-            <h3>Open de Marseille</h3>
-            <p>Notre tournoi annuel, ouvert à tous les joueurs classés.</p>
-            <NuxtLink to="/open-marseille" class="card-link">En savoir plus →</NuxtLink>
-          </div>
-          <div class="card">
-            <div class="card-icon">❤️</div>
-            <h3>Sport santé</h3>
-            <p>Le ping accessible à tous, y compris les seniors et débutants.</p>
-            <NuxtLink to="/club" class="card-link">En savoir plus →</NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- LE CLUB -->
+<section class="section section-white">
+  <div class="section-inner">
+    <h2>Pratiquer, progresser, partager</h2>
+    <p class="section-intro">Une structure conviviale pour découvrir ou se perfectionner au tennis de table. Débutant ou compétiteur, nous vous accueillons dans une ambiance dynamique.</p>
+    <div class="cards-grid">
+<div class="card">
+  <div class="card-img">
+    <img src="/images/photo_mondon.jpeg" alt="Compétitions" draggable="false" />
+    <div class="card-img-overlay">
+      <h3>Compétitions</h3>
+    </div>
+  </div>
+  <div class="card-body">
+    <p>Championnats par équipes et individuels pour tous les niveaux.</p>
+    <NuxtLink to="/competitions" class="card-btn">En savoir plus</NuxtLink>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img">
+    <img src="/images/photo_asand.png" alt="Entraînements" draggable="false" />
+    <div class="card-img-overlay">
+      <h3>Entraînements</h3>
+    </div>
+  </div>
+  <div class="card-body">
+    <p>Plusieurs créneaux par semaine, du lundi au vendredi.</p>
+    <NuxtLink to="/inscription" class="card-btn">Voir le planning</NuxtLink>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img">
+    <img src="/images/photo_open.png" alt="Open de Marseille" draggable="false" />
+    <div class="card-img-overlay">
+      <h3>Open de Marseille</h3>
+    </div>
+  </div>
+  <div class="card-body">
+    <p>Notre tournoi annuel, ouvert à tous les joueurs classés.</p>
+    <NuxtLink to="/open-marseille" class="card-btn">En savoir plus</NuxtLink>
+  </div>
+</div>
+<div class="card">
+  <div class="card-img">
+    <img src="/images/photo_asand.png" alt="L'association" draggable="false" />
+    <div class="card-img-overlay">
+      <h3>L'association</h3>
+    </div>
+  </div>
+  <div class="card-body">
+    <p>Découvrez notre histoire, nos valeurs et notre engagement.</p>
+    <NuxtLink to="/association" class="card-btn">En savoir plus</NuxtLink>
+  </div>
+</div>
+    </div>
+    </div>
+</section>
 
     <!-- ACTUALITÉS -->
     <section class="section section-grey">
       <div class="section-inner">
-        <span class="section-tag">Actualités</span>
-        <h2>Les dernières nouvelles du club</h2>
+        <h2>Actualités</h2>
         <div class="news-grid">
-          <div class="news-card">
-            <div class="news-img-placeholder"></div>
-            <div class="news-body">
-              <span class="news-tag">Vie du club</span>
-              <p class="news-title">Inscriptions ouvertes toute l'année !</p>
-              <span class="news-date">11 décembre 2024</span>
-            </div>
-          </div>
-          <div class="news-card">
-            <div class="news-img-placeholder"></div>
-            <div class="news-body">
-              <span class="news-tag">Réseaux sociaux</span>
-              <p class="news-title">Suivez-nous sur Facebook et Instagram</p>
-              <span class="news-date">28 décembre 2021</span>
-            </div>
-          </div>
-          <div class="news-card">
-            <div class="news-img-placeholder"></div>
-            <div class="news-body">
-              <span class="news-tag">Compétition</span>
-              <p class="news-title">Résultats de la dernière journée de championnat</p>
-              <span class="news-date">À venir</span>
-            </div>
-          </div>
+        <div class="news-card">
+  <div class="news-img">
+    <img src="/images/photo_asand.png" alt="Inscriptions" draggable="false" />
+  </div>
+  <div class="news-body">
+    <span class="news-tag">Vie du club</span>
+    <p class="news-title">Inscriptions ouvertes toute l'année !</p>
+    <span class="news-date">11 décembre 2024</span>
+  </div>
+</div>
+<div class="news-card">
+  <div class="news-img">
+    <img src="/images/photo_asand.png" alt="Réseaux sociaux" draggable="false" />
+  </div>
+  <div class="news-body">
+    <span class="news-tag">Réseaux sociaux</span>
+    <p class="news-title">Suivez-nous sur Facebook et Instagram</p>
+    <span class="news-date">28 décembre 2021</span>
+  </div>
+</div>
+<div class="news-card">
+  <div class="news-img">
+    <img src="/images/photo_asand.png" alt="Compétition" draggable="false" />
+  </div>
+  <div class="news-body">
+    <span class="news-tag">Compétition</span>
+    <p class="news-title">Résultats de la dernière journée de championnat</p>
+    <span class="news-date">À venir</span>
+  </div>
+</div>
         </div>
       </div>
     </section>
 
-    <!-- AGENDA -->
-    <section class="section section-white">
-      <div class="section-inner">
-        <span class="section-tag">Agenda</span>
-        <h2>Prochaines rencontres</h2>
-        <div class="agenda-grid">
-          <div class="agenda-item">
-            <div class="agenda-date">
-              <span class="day">30</span>
-              <span class="month">Mai</span>
-            </div>
-            <div class="agenda-info">
-              <h4>Championnat — 6ème journée</h4>
-              <p>Gymnase Artaud, Marseille</p>
-            </div>
-          </div>
-          <div class="agenda-item">
-            <div class="agenda-date">
-              <span class="day">06</span>
-              <span class="month">Juin</span>
-            </div>
-            <div class="agenda-info">
-              <h4>Championnat — 7ème journée</h4>
-              <p>Gymnase Artaud, Marseille</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<!-- PARTENAIRES -->
+<section class="section section-white partenaires">
+  <div class="section-inner-full">
+    <h2 style="text-align:center; margin-bottom:2.5rem;">Nos partenaires</h2>
+    <div
+      class="partners-viewport"
+      @mousedown="onDragStart"
+      @mousemove="onDragMove"
+      @mouseup="onDragEnd"
+      @mouseleave="onDragEnd"
+      @touchstart="onDragStart"
+      @touchmove="onDragMove"
+      @touchend="onDragEnd"
+    >
+<div class="partners-track" ref="partnerTrack">
+  <img src="/images/Logo-département-13.png" alt="Département 13" draggable="false" />
+  <img src="/images/logo-ville-de-marseille.jpg" alt="Ville de Marseille" draggable="false" />
+  <img src="/images/logo-fftt.jpg" alt="FFTT" class="logo-large" draggable="false" />
+  <img src="/images/Logo-HIGHCOM.png" alt="Highcom" draggable="false" />
+  <img src="/images/Logo-NANOGLOU.png" alt="Nanoglou" class="logo-small" draggable="false" />
+  <img src="/images/Logo-groupe-MAURIN.png" alt="Groupe Maurin" draggable="false" />
+  <img src="/images/Logo-SPEEDY.png" alt="Speedy" draggable="false" />
+  <img src="/images/Logo-agence-nationale-du-sport.png" alt="Agence Nationale du Sport" draggable="false" />
+  <img src="/images/Logo-terrasses-saint-mitre.png" alt="Terrasses Saint-Mitre" draggable="false" />
+  <img src="/images/Logo-CORNILLEAU.png" alt="Cornilleau" draggable="false" />
+  <img src="/images/logo-SILVER-EQUIPMENT.jpg" alt="Silver Equipment" draggable="false" />
+  <img src="/images/logo-liguepaca.png" alt="Ligue PACA" draggable="false" />
+  <img src="/images/logo-cd13tt.png" alt="CD13TT" draggable="false" />
+  <img src="/images/LOGO-région-SUD.jpg" alt="Région Sud" draggable="false" />
+    <img src="/images/logo-gewo.png" alt="Gewo" draggable="false" />
+  <!-- Duplication pour boucle -->
+  <img src="/images/Logo-département-13.png" alt="Département 13" draggable="false" />
+  <img src="/images/logo-ville-de-marseille.jpg" alt="Ville de Marseille" draggable="false" />
+  <img src="/images/logo-fftt.jpg" alt="FFTT" class="logo-large" draggable="false" />
+  <img src="/images/Logo-HIGHCOM.png" alt="Highcom" draggable="false" />
+  <img src="/images/Logo-NANOGLOU.png" alt="Nanoglou" class="logo-small" draggable="false" />
+  <img src="/images/Logo-groupe-MAURIN.png" alt="Groupe Maurin" draggable="false" />
+  <img src="/images/Logo-SPEEDY.png" alt="Speedy" draggable="false" />
+  <img src="/images/Logo-agence-nationale-du-sport.png" alt="Agence Nationale du Sport" draggable="false" />
+  <img src="/images/Logo-terrasses-saint-mitre.png" alt="Terrasses Saint-Mitre" draggable="false" />
+  <img src="/images/Logo-CORNILLEAU.png" alt="Cornilleau" draggable="false" />
+  <img src="/images/logo-SILVER-EQUIPMENT.jpg" alt="Silver Equipment" draggable="false" />
+  <img src="/images/logo-liguepaca.png" alt="Ligue PACA" draggable="false" />
+  <img src="/images/logo-cd13tt.png" alt="CD13TT" draggable="false" />
+  <img src="/images/LOGO-région-SUD.jpg" alt="Région Sud" draggable="false" />
+      <img src="/images/logo-gewo.png" alt="Gewo" draggable="false" />
+</div>
+    </div>
+  </div>
+</section>
 
   </div>
 </template>
@@ -155,24 +317,42 @@ useSeoMeta({
 <style scoped>
 /* HERO */
 .hero {
-  background: #0d1f3c;
+  position: relative;
+  min-height: 660px;
   display: flex;
   align-items: center;
-  min-height: 480px;
-  position: relative;
   overflow: hidden;
 }
-.hero-content {
-  flex: 1;
-  padding: 4rem 2.5rem;
-  max-width: 600px;
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(10, 30, 70, 0.92) 0%,
+    rgba(10, 30, 70, 0.75) 20%,
+    rgba(10, 30, 70, 0.15) 100%
+  );
   z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 4rem 5rem;
+  max-width: 650px;
 }
 .hero-badge {
   display: inline-block;
-  background: rgba(255,255,255,0.08);
-  border: 0.5px solid rgba(255,255,255,0.15);
-  color: #9bbfdf;
+  background: rgba(255,255,255,0.12);
+  border: 0.5px solid rgba(255,255,255,0.2);
+  color: #c8dff5;
   font-size: 12px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -181,25 +361,49 @@ useSeoMeta({
   margin-bottom: 1.5rem;
 }
 .hero-content h1 {
-  font-size: 44px;
-  font-weight: 500;
+  font-size: 58px;
+  font-weight: 400;
   color: #fff;
-  line-height: 1.15;
-  margin-bottom: 1rem;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
   letter-spacing: -0.5px;
 }
-.hero-content h1 em {
-  color: #5BA4E5;
-  font-style: normal;
+.hero-content h1 strong {
+  font-weight: 800;
+  color: #fff;
 }
 .hero-content p {
-  font-size: 16px;
-  color: #8daec9;
+  font-size: 17px;
+  color: rgba(255,255,255,0.75);
   line-height: 1.7;
-  margin-bottom: 2rem;
-  max-width: 460px;
+  margin-bottom: 2.5rem;
+  max-width: 480px;
 }
-.hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-primary {
+  background: #fff;
+  color: #0d1f3c;
+  padding: 13px 30px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.btn-primary:hover { background: #e8f0fb; }
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  padding: 13px 30px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.btn-outline:hover { background: rgba(255,255,255,0.08); }
+.hero-img { display: none; }
 .btn-primary {
   background: #fff;
   color: #0d1f3c;
@@ -225,31 +429,48 @@ useSeoMeta({
   flex-shrink: 0;
 }
 
-/* STATS */
 .stats-row {
-  background: #fff;
-  border-bottom: 0.5px solid #e8edf3;
+  background: linear-gradient(135deg, #173b88 0%, #2e6fbf 100%);
   display: flex;
   justify-content: center;
+  margin: 4rem auto;
+  max-width: 1200px;
+  border-radius: 20px;
 }
 .stat {
-  padding: 1.4rem 3rem;
+  flex: 1;
+  max-width: 280px;
+  padding: 5rem 2rem;
   text-align: center;
-  border-right: 0.5px solid #e8edf3;
+  border-right: 0.5px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 .stat:last-child { border-right: none; }
+.stat-icon {
+  width: 36px;
+  height: 36px;
+  color: #5BA4E5;
+  margin-bottom: 4px;
+}
 .stat-n {
-  font-size: 30px;
-  font-weight: 500;
-  color: #1455A4;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  color: #fff;
   display: block;
+  line-height: 1;
+  letter-spacing: 1px;
 }
 .stat-l {
-  font-size: 11px;
-  color: #8899aa;
-  letter-spacing: 0.8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-top: 2px;
   display: block;
 }
 
@@ -270,9 +491,9 @@ useSeoMeta({
   margin-bottom: 1rem;
 }
 .section h2 {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 500;
-  color: #0d1f3c;
+  color: #0e3471;
   margin-bottom: 0.75rem;
   letter-spacing: -0.3px;
 }
@@ -283,28 +504,86 @@ useSeoMeta({
   max-width: 560px;
 }
 
-/* CARDS */
+/* Cards */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   margin-top: 2.5rem;
 }
 .card {
-  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
   border: 0.5px solid #e4eaf2;
-  border-radius: 14px;
-  padding: 1.5rem;
+  background: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 16px rgba(10, 30, 70, 0.08);
 }
-.card-icon { font-size: 24px; margin-bottom: 1rem; }
-.card h3 { font-size: 15px; font-weight: 500; color: #0d1f3c; margin-bottom: 6px; }
-.card p { font-size: 13px; color: #5a6a7a; line-height: 1.6; }
-.card-link {
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(10, 30, 70, 0.15);
+}
+.card-img {
+  position: relative;
+  height: 320px;
+  overflow: hidden;
+}
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+.card:hover .card-img img {
+  transform: scale(1.05);
+}
+.card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 20, 55, 0.65) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem 1.5rem;
+}
+.card-img-overlay h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.card-body {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card-body p {
   font-size: 13px;
-  color: #1455A4;
+  color: #5a6a7a;
+  line-height: 1.6;
+  margin: 0;
+}
+.card-btn {
+  align-self: flex-start;
+  background: #3293d4;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 20px;
   text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
+  letter-spacing: 0.3px;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 12px rgba(20, 85, 164, 0.35);
+}
+.card-btn:hover {
+  background: #0f3f85;
+  box-shadow: 0 6px 18px rgba(20, 85, 164, 0.45);
 }
 
 /* NEWS */
@@ -321,7 +600,7 @@ useSeoMeta({
   overflow: hidden;
 }
 .news-img-placeholder {
-  height: 140px;
+  height: 240px;
   background: #e8f0fb;
 }
 .news-body { padding: 1rem; }
@@ -361,4 +640,42 @@ useSeoMeta({
 .month { font-size: 11px; color: #8899aa; text-transform: uppercase; letter-spacing: 1px; }
 .agenda-info h4 { font-size: 14px; font-weight: 500; color: #0d1f3c; }
 .agenda-info p { font-size: 12px; color: #8899aa; margin-top: 3px; }
+
+/* PARTENAIRES */
+.section-inner-full {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.partners-viewport {
+  overflow: hidden;
+  width: 100%;
+  cursor: grab;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.partners-viewport:active {
+  cursor: grabbing;
+}
+.partners-track {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: max-content;
+  padding: 1rem 0;
+}
+.partners-track img {
+  height: 60px;
+  width: 180px;
+  object-fit: contain;
+  flex-shrink: 0;
+  user-select: none;
+  pointer-events: none;
+}
+.partners-track img.logo-large {
+  height: 80px;
+}
+.partners-track img.logo-small {
+  height: 40px;
+}
 </style>
