@@ -14,26 +14,33 @@ const bureau = [
 
 const pratiques = [
   {
-    icon: '🏓',
+    icon: 'competition',
     title: 'Compétition',
     desc: '8 équipes du départemental au national. Les joueurs les mieux classés de Marseille, tous clubs confondus.',
   },
   {
-    icon: '😊',
+    icon: 'loisir',
     title: 'Loisir',
     desc: 'Des créneaux sans condition de niveau pour tous les amateurs. La pratique loisir est majoritaire au club.',
   },
   {
-    icon: '⭐',
+    icon: 'jeunes',
     title: 'Jeunes',
     desc: 'Formation des plus jeunes, notre priorité depuis toujours. Encadrés par notre éducateur sportif.',
   },
   {
-    icon: '👩',
+    icon: 'feminin',
     title: 'Féminin',
     desc: 'La pratique féminine est très importante. Des joueuses de tous âges et niveaux, en nombre croissant.',
   },
 ]
+
+const pratiqueIcons = {
+  competition: `<path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>`,
+  loisir: `<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/>`,
+  jeunes: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>`,
+  feminin: `<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>`,
+}
 </script>
 
 <template>
@@ -42,34 +49,12 @@ const pratiques = [
     <!-- HERO -->
     <section class="hero">
       <div class="hero-overlay"></div>
-      <img src="/images/photo_asand.png" alt="Club ASANDTT Marseille" class="hero-bg" />
+      <img src="/images/photo-seb-raph-mich.jpg" alt="Club ASANDTT Marseille" class="hero-bg" />
       <div class="hero-content">
-        <span class="hero-badge">Fondé en 1974 · Marseille</span>
         <h1>L'association<br/><strong>ASANDTT</strong></h1>
         <p>La référence du tennis de table à Marseille depuis plus de 50 ans. Ouvert à tous, tous les niveaux, tous les âges.</p>
       </div>
     </section>
-
-    <!-- CHIFFRES CLÉS -->
-    <div class="key-stats">
-      <div class="key-stat">
-        <span class="key-n">1974</span>
-        <span class="key-l">Année de création</span>
-      </div>
-      <div class="key-stat">
-        <span class="key-n">200+</span>
-        <span class="key-l">Adhérents</span>
-      </div>
-      <div class="key-stat">
-        <span class="key-n">20</span>
-        <span class="key-l">Tables</span>
-      </div>
-      <div class="key-stat">
-        <span class="key-n">7–76</span>
-        <span class="key-l">Ans, tous les âges</span>
-      </div>
-    </div>
-
     <!-- BUREAU -->
     <section class="section section-white">
       <div class="section-inner">
@@ -179,11 +164,13 @@ const pratiques = [
         <h2>Un club pour chaque profil</h2>
         <p class="section-intro">Du débutant au compétiteur national, de 7 à 76 ans, l'ASAND accueille tout le monde dans la bonne humeur.</p>
         <div class="pratiques-grid">
-          <div v-for="item in pratiques" :key="item.title" class="pratique-card">
-            <span class="pratique-icon">{{ item.icon }}</span>
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.desc }}</p>
-          </div>
+<div v-for="item in pratiques" :key="item.title" class="pratique-card">
+  <div class="pratique-icon">
+    <svg viewBox="0 0 24 24" v-html="pratiqueIcons[item.icon]" aria-hidden="true"></svg>
+  </div>
+  <h3>{{ item.title }}</h3>
+  <p>{{ item.desc }}</p>
+</div>
         </div>
       </div>
     </section>
@@ -260,37 +247,6 @@ const pratiques = [
   color: rgba(255,255,255,0.75);
   line-height: 1.7;
   max-width: 460px;
-}
-
-/* KEY STATS */
-.key-stats {
-  background: #0a1f4e;
-  display: flex;
-  justify-content: center;
-}
-.key-stat {
-  flex: 1;
-  max-width: 240px;
-  padding: 2.5rem 2rem;
-  text-align: center;
-  border-right: 0.5px solid rgba(255,255,255,0.08);
-}
-.key-stat:last-child { border-right: none; }
-.key-n {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 42px;
-  font-weight: 700;
-  color: #fff;
-  display: block;
-  line-height: 1;
-}
-.key-l {
-  font-size: 11px;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-top: 6px;
-  display: block;
 }
 
 /* SECTIONS */
@@ -562,9 +518,22 @@ const pratiques = [
   box-shadow: 0 10px 28px rgba(10,30,70,0.1);
 }
 .pratique-icon {
-  font-size: 28px;
-  display: block;
-  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+.pratique-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: #1455A4;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .pratique-card h3 {
   font-size: 16px;

@@ -28,36 +28,35 @@ function animateCount(key, target, duration = 2000) {
 
 // --- PARTENAIRES CAROUSEL ---
 const partnerTrack = ref(null)
-const currentIndex = ref(0)
-const logoCount = 14
-const logoWidth = 180
-const gap = 64
 let autoplayInterval = null
 let isDragging = false
 let startX = 0
-let dragStartIndex = 0
+let currentTranslate = 0
+let dragStartTranslate = 0
+let hasDragged = false
 
-function getOffset(index) {
-  return index * (logoWidth + gap)
-}
-
-function goToIndex(index) {
-  // Boucle infinie
-  let i = index % logoCount
-  if (i < 0) i += logoCount
-  currentIndex.value = i
-
-  if (partnerTrack.value) {
-    partnerTrack.value.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-    partnerTrack.value.style.transform = `translateX(-${getOffset(i)}px)`
-  }
-}
+const logoCount = 15  // nombre de logos dans UN seul groupe
+const logoWidth = 180
+const gap = 64
+const groupWidth = logoCount * (logoWidth + gap)
 
 function startAutoplay() {
   stopAutoplay()
   autoplayInterval = setInterval(() => {
-    goToIndex(currentIndex.value + 1)
-  }, 3000)
+    currentTranslate += 1
+    if (currentTranslate >= groupWidth) {
+      currentTranslate -= groupWidth
+      if (partnerTrack.value) {
+        partnerTrack.value.style.transition = 'none'
+        partnerTrack.value.style.transform = `translateX(-${currentTranslate}px)`
+      }
+      return
+    }
+    if (partnerTrack.value) {
+      partnerTrack.value.style.transition = 'none'
+      partnerTrack.value.style.transform = `translateX(-${currentTranslate}px)`
+    }
+  }, 16)
 }
 
 function stopAutoplay() {
@@ -67,8 +66,9 @@ function stopAutoplay() {
 function onDragStart(e) {
   e.preventDefault()
   isDragging = true
+  hasDragged = false
   startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX
-  dragStartIndex = currentIndex.value
+  dragStartTranslate = currentTranslate
   stopAutoplay()
   if (partnerTrack.value) {
     partnerTrack.value.style.transition = 'none'
@@ -80,24 +80,26 @@ function onDragMove(e) {
   e.preventDefault()
   const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX
   const diff = startX - x
-
-  // Déplacement fluide en temps réel
-  const currentOffset = getOffset(dragStartIndex)
+  if (Math.abs(diff) > 5) hasDragged = true
+  currentTranslate = dragStartTranslate + diff
+  // Boucle
+  if (currentTranslate < 0) currentTranslate += groupWidth
+  if (currentTranslate >= groupWidth) currentTranslate -= groupWidth
   if (partnerTrack.value) {
-    partnerTrack.value.style.transform = `translateX(-${currentOffset + diff}px)`
+    partnerTrack.value.style.transform = `translateX(-${currentTranslate}px)`
   }
 }
 
 function onDragEnd(e) {
   if (!isDragging) return
   isDragging = false
-  const x = e.type === 'touchend' ? e.changedTouches[0].clientX : e.clientX
-  const diff = startX - x
-
-  // Nombre de logos à skiper selon l'intensité du balayement
-  const skipped = Math.round(diff / (logoWidth + gap))
-  goToIndex(dragStartIndex + skipped)
   startAutoplay()
+}
+
+function onPartnerClick(e) {
+  if (hasDragged) {
+    e.preventDefault()
+  }
 }
 
 onMounted(() => {
@@ -127,12 +129,12 @@ onUnmounted(() => {
     <!-- HERO -->
 <section class="hero">
   <div class="hero-overlay"></div>
-  <img src="/images/photo_asand.png" alt="Gymnase ASANDTT Marseille" class="hero-bg" />
+  <img src="/images/photo_pierre.jpg" alt="Gymnase ASANDTT Marseille" class="hero-bg" />
   <div class="hero-content">
     <h1>Le plus grand club<br/><strong>de Marseille</strong></h1>
     <p>Rejoignez l'ASAND — 20 tables, tous niveaux, tous âges. Du loisir à la compétition, dans un grand gymnase au cœur de Marseille.</p>
     <div class="hero-btns">
-      <NuxtLink to="/inscription" class="btn-primary">Nous rejoindre</NuxtLink>
+      <NuxtLink to="/contact" class="btn-primary">Nous rejoindre</NuxtLink>
       <NuxtLink to="/association" class="btn-outline">Découvrir le club</NuxtLink>
     </div>
   </div>
@@ -169,7 +171,7 @@ onUnmounted(() => {
     <h2>Pratiquer, progresser, partager</h2>
     <p class="section-intro">Une structure conviviale pour découvrir ou se perfectionner au tennis de table. Débutant ou compétiteur, nous vous accueillons dans une ambiance dynamique.</p>
     <div class="cards-grid">
-<div class="card">
+<NuxtLink to="/competitions" class="card">
   <div class="card-img">
     <img src="/images/photo_mondon.jpeg" alt="Compétitions" draggable="false" />
     <div class="card-img-overlay">
@@ -178,34 +180,34 @@ onUnmounted(() => {
   </div>
   <div class="card-body">
     <p>Championnats par équipes et individuels pour tous les niveaux.</p>
-    <NuxtLink to="/competitions" class="card-btn">En savoir plus</NuxtLink>
   </div>
-</div>
-<div class="card">
+</NuxtLink>
+
+<NuxtLink to="/inscription" class="card">
   <div class="card-img">
-    <img src="/images/photo_asand.png" alt="Entraînements" draggable="false" />
+    <img src="/images/photo-lucas.jpg" alt="Entraînements" draggable="false" />
     <div class="card-img-overlay">
       <h3>Entraînements</h3>
     </div>
   </div>
   <div class="card-body">
     <p>Plusieurs créneaux par semaine, du lundi au vendredi.</p>
-    <NuxtLink to="/inscription" class="card-btn">Voir le planning</NuxtLink>
   </div>
-</div>
-<div class="card">
+</NuxtLink>
+
+<NuxtLink to="/open-marseille" class="card">
   <div class="card-img">
-    <img src="/images/photo_open.png" alt="Open de Marseille" draggable="false" />
+    <img src="/images/open-marseille.jpg" alt="Open de Marseille" draggable="false" />
     <div class="card-img-overlay">
       <h3>Open de Marseille</h3>
     </div>
   </div>
   <div class="card-body">
     <p>Notre tournoi annuel, ouvert à tous les joueurs classés.</p>
-    <NuxtLink to="/open-marseille" class="card-btn">En savoir plus</NuxtLink>
   </div>
-</div>
-<div class="card">
+</NuxtLink>
+
+<NuxtLink to="/association" class="card">
   <div class="card-img">
     <img src="/images/photo_asand.png" alt="L'association" draggable="false" />
     <div class="card-img-overlay">
@@ -214,9 +216,8 @@ onUnmounted(() => {
   </div>
   <div class="card-body">
     <p>Découvrez notre histoire, nos valeurs et notre engagement.</p>
-    <NuxtLink to="/association" class="card-btn">En savoir plus</NuxtLink>
   </div>
-</div>
+</NuxtLink>
     </div>
     </div>
 </section>
@@ -275,37 +276,97 @@ onUnmounted(() => {
       @touchend="onDragEnd"
     >
 <div class="partners-track" ref="partnerTrack">
-  <img src="/images/Logo-département-13.png" alt="Département 13" draggable="false" />
-  <img src="/images/logo-ville-de-marseille.jpg" alt="Ville de Marseille" draggable="false" />
-  <img src="/images/logo-fftt.jpg" alt="FFTT" class="logo-large" draggable="false" />
-  <img src="/images/Logo-HIGHCOM.png" alt="Highcom" draggable="false" />
-  <img src="/images/Logo-NANOGLOU.png" alt="Nanoglou" class="logo-small" draggable="false" />
-  <img src="/images/Logo-groupe-MAURIN.png" alt="Groupe Maurin" draggable="false" />
-  <img src="/images/Logo-SPEEDY.png" alt="Speedy" draggable="false" />
-  <img src="/images/Logo-agence-nationale-du-sport.png" alt="Agence Nationale du Sport" draggable="false" />
-  <img src="/images/Logo-terrasses-saint-mitre.png" alt="Terrasses Saint-Mitre" draggable="false" />
-  <img src="/images/Logo-CORNILLEAU.png" alt="Cornilleau" draggable="false" />
-  <img src="/images/logo-SILVER-EQUIPMENT.jpg" alt="Silver Equipment" draggable="false" />
-  <img src="/images/logo-liguepaca.png" alt="Ligue PACA" draggable="false" />
-  <img src="/images/logo-cd13tt.png" alt="CD13TT" draggable="false" />
-  <img src="/images/LOGO-région-SUD.jpg" alt="Région Sud" draggable="false" />
+    <a href="https://www.departement13.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-département-13.png" alt="Département 13" draggable="false" />
+  </a>
+  <a href="https://www.marseille.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-ville-de-marseille.jpg" alt="Ville de Marseille" draggable="false" />
+  </a>
+  <a href="https://www.fftt.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-fftt.jpg" alt="FFTT" class="logo-large" draggable="false" />
+  </a>
+  <a href="https://high-com.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-HIGHCOM.png" alt="Highcom" draggable="false" />
+  </a>
+  <a href="https://www.google.com/maps/search/Nanoglou+Radiateurs+Marseille" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-NANOGLOU.png" alt="Nanoglou" class="logo-small" draggable="false" />
+  </a>
+  <a href="https://www.groupe-maurin.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-groupe-MAURIN.png" alt="Groupe Maurin" draggable="false" />
+  </a>
+  <a href="https://www.speedy.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-SPEEDY.png" alt="Speedy" draggable="false" />
+  </a>
+  <a href="https://www.agencedusport.fr/" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-agence-nationale-du-sport.png" alt="Agence Nationale du Sport" draggable="false" />
+  </a>
+  <a href="https://www.tripadvisor.fr/Restaurant_Review-g187253-d4010930-Reviews-Les_Terrasses_de_St_Mitre-Marseille_Bouches_du_Rhone_Provence_Alpes_Cote_d_Azur.html" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-terrasses-saint-mitre.png" alt="Terrasses Saint-Mitre" draggable="false" />
+  </a>
+  <a href="https://www.cornilleau.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-CORNILLEAU.png" alt="Cornilleau" draggable="false" />
+  </a>
+  <a href="https://www.silver-equipment.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-SILVER-EQUIPMENT.jpg" alt="Silver Equipment" draggable="false" />
+  </a>
+  <a href="https://www.tennisdetableregionsud.fr/index.php/accueil/general/:infos" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo_liguepaca.jpg" alt="Ligue PACA" draggable="false" />
+  </a>
+  <a href="https://www.cd13tt.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-cd13tt.png" alt="CD13TT" draggable="false" />
+  </a>
+  <a href="https://www.maregionsud.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/LOGO-région-SUD.jpg" alt="Région Sud" draggable="false" />
+  </a>
+  <a href="https://www.gewo-tt.com/en/" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
     <img src="/images/logo-gewo.png" alt="Gewo" draggable="false" />
+  </a>
   <!-- Duplication pour boucle -->
-  <img src="/images/Logo-département-13.png" alt="Département 13" draggable="false" />
-  <img src="/images/logo-ville-de-marseille.jpg" alt="Ville de Marseille" draggable="false" />
-  <img src="/images/logo-fftt.jpg" alt="FFTT" class="logo-large" draggable="false" />
-  <img src="/images/Logo-HIGHCOM.png" alt="Highcom" draggable="false" />
-  <img src="/images/Logo-NANOGLOU.png" alt="Nanoglou" class="logo-small" draggable="false" />
-  <img src="/images/Logo-groupe-MAURIN.png" alt="Groupe Maurin" draggable="false" />
-  <img src="/images/Logo-SPEEDY.png" alt="Speedy" draggable="false" />
-  <img src="/images/Logo-agence-nationale-du-sport.png" alt="Agence Nationale du Sport" draggable="false" />
-  <img src="/images/Logo-terrasses-saint-mitre.png" alt="Terrasses Saint-Mitre" draggable="false" />
-  <img src="/images/Logo-CORNILLEAU.png" alt="Cornilleau" draggable="false" />
-  <img src="/images/logo-SILVER-EQUIPMENT.jpg" alt="Silver Equipment" draggable="false" />
-  <img src="/images/logo-liguepaca.png" alt="Ligue PACA" draggable="false" />
-  <img src="/images/logo-cd13tt.png" alt="CD13TT" draggable="false" />
-  <img src="/images/LOGO-région-SUD.jpg" alt="Région Sud" draggable="false" />
-      <img src="/images/logo-gewo.png" alt="Gewo" draggable="false" />
+    <a href="https://www.departement13.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-département-13.png" alt="Département 13" draggable="false" />
+  </a>
+  <a href="https://www.marseille.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-ville-de-marseille.jpg" alt="Ville de Marseille" draggable="false" />
+  </a>
+  <a href="https://www.fftt.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-fftt.jpg" alt="FFTT" class="logo-large" draggable="false" />
+  </a>
+  <a href="https://high-com.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-HIGHCOM.png" alt="Highcom" draggable="false" />
+  </a>
+  <a href="https://www.google.com/maps/search/Nanoglou+Radiateurs+Marseille" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-NANOGLOU.png" alt="Nanoglou" class="logo-small" draggable="false" />
+  </a>
+  <a href="https://www.groupe-maurin.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-groupe-MAURIN.png" alt="Groupe Maurin" draggable="false" />
+  </a>
+  <a href="https://www.speedy.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-SPEEDY.png" alt="Speedy" draggable="false" />
+  </a>
+  <a href="https://www.agencedusport.fr/" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-agence-nationale-du-sport.png" alt="Agence Nationale du Sport" draggable="false" />
+  </a>
+  <a href="https://www.tripadvisor.fr/Restaurant_Review-g187253-d4010930-Reviews-Les_Terrasses_de_St_Mitre-Marseille_Bouches_du_Rhone_Provence_Alpes_Cote_d_Azur.html" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-terrasses-saint-mitre.png" alt="Terrasses Saint-Mitre" draggable="false" />
+  </a>
+  <a href="https://www.cornilleau.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/Logo-CORNILLEAU.png" alt="Cornilleau" draggable="false" />
+  </a>
+  <a href="https://www.silver-equipment.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-SILVER-EQUIPMENT.jpg" alt="Silver Equipment" draggable="false" />
+  </a>
+  <a href="https://www.tennisdetableregionsud.fr/index.php/accueil/general/:infos" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo_liguepaca.jpg" alt="Ligue PACA" draggable="false" />
+  </a>
+  <a href="https://www.cd13tt.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-cd13tt.png" alt="CD13TT" draggable="false" />
+  </a>
+  <a href="https://www.maregionsud.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/LOGO-région-SUD.jpg" alt="Région Sud" draggable="false" />
+  </a>
+  <a href="https://www.gewo-tt.com/en/" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
+    <img src="/images/logo-gewo.png" alt="Gewo" draggable="false" />
+  </a>
 </div>
     </div>
   </div>
@@ -315,10 +376,17 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+
+:global(html),
+:global(body) {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 /* HERO */
 .hero {
   position: relative;
-  min-height: 660px;
+  min-height: 860px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -428,47 +496,45 @@ onUnmounted(() => {
   width: 42%;
   flex-shrink: 0;
 }
-
 .stats-row {
-  background: linear-gradient(135deg, #173b88 0%, #2e6fbf 100%);
   display: flex;
   justify-content: center;
-  margin: 4rem auto;
-  max-width: 1200px;
-  border-radius: 20px;
+  margin: 4rem auto 2rem;
+  max-width: 1100px;
 }
 .stat {
   flex: 1;
   max-width: 280px;
-  padding: 5rem 2rem;
+  padding: 3.5rem 2rem;
   text-align: center;
-  border-right: 0.5px solid rgba(255,255,255,0.08);
+  border-right: none;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  transition: background 0.2s ease;
 }
 .stat:last-child { border-right: none; }
 .stat-icon {
-  width: 36px;
-  height: 36px;
-  color: #5BA4E5;
-  margin-bottom: 4px;
+  width: 42px;
+  height: 42px;
+  color: #0e3471;
+  margin-bottom: 8px;
 }
 .stat-n {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 56px;
+  font-size: 52px;
   font-weight: 700;
-  color: #fff;
+  color: #0e3471;
   display: block;
   line-height: 1;
   letter-spacing: 1px;
 }
 .stat-l {
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+  font-weight: 600;
+  color: #8899aa;
   letter-spacing: 2px;
   text-transform: uppercase;
   display: block;
@@ -518,6 +584,9 @@ onUnmounted(() => {
   background: #fff;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   box-shadow: 0 4px 16px rgba(10, 30, 70, 0.08);
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
 }
 .card:hover {
   transform: translateY(-4px);
@@ -645,6 +714,7 @@ onUnmounted(() => {
 .section-inner-full {
   max-width: 1100px;
   margin: 0 auto;
+  overflow: hidden;
 }
 .partners-viewport {
   overflow: hidden;
@@ -677,5 +747,90 @@ onUnmounted(() => {
 }
 .partners-track img.logo-small {
   height: 40px;
+}
+.partners-track a {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.partners-track a img {
+  width: 180px; /* reprend la largeur existante */
+}
+
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 900px) {
+
+  /* HERO */
+  .hero {
+    min-height: 520px;
+    align-items: flex-end;
+  }
+  .hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(10, 30, 70, 0.92) 0%,
+      rgba(10, 30, 70, 0.6) 50%,
+      rgba(10, 30, 70, 0.2) 100%
+    );
+  }
+  .hero-content {
+    padding: 2rem 1.5rem 3rem;
+    max-width: 100%;
+  }
+  .hero-content h1 {
+    font-size: 36px;
+  }
+  .hero-content p {
+    font-size: 15px;
+    max-width: 100%;
+  }
+  .hero-btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-primary, .btn-outline {
+    text-align: center;
+    padding: 13px 20px;
+  }
+
+  /* STATS */
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 2rem 1rem;
+    gap: 0;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .stat {
+    max-width: 100%;
+    padding: 2rem 1rem;
+  }
+  .stat:nth-child(2n) { border-right: none; }
+  .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
+  .stat-n { font-size: 42px; }
+  .stat-l { font-size: 11px; }
+  .stat-icon { width: 28px; height: 28px; }
+
+  /* SECTIONS */
+  .section { padding: 3rem 1.25rem; }
+  .section h2 { font-size: 28px; }
+  .section-intro { font-size: 14px; }
+
+  /* CARDS */
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .card-img { height: 220px; }
+
+  /* NEWS */
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* PARTENAIRES */
+  .section-inner-full { padding: 0 1rem; }
 }
 </style>

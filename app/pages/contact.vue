@@ -24,16 +24,6 @@ function handleSubmit() {
 <template>
   <div>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-overlay"></div>
-      <img src="/images/photo_asand.png" alt="Contact ASANDTT Marseille" class="hero-bg" />
-      <div class="hero-content">
-        <h1>Nous<br/><strong>contacter</strong></h1>
-        <p>Une question ? Venez nous rendre visite ou contactez-nous directement, nous vous répondrons rapidement.</p>
-      </div>
-    </section>
-
     <!-- CONTENU -->
     <section class="section section-white">
       <div class="section-inner content-grid">
@@ -395,7 +385,7 @@ function handleSubmit() {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #1455A4;
+  background: #3293d4;
   color: #fff;
   border: none;
   padding: 13px 28px;
