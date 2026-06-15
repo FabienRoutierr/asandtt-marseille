@@ -99,14 +99,6 @@ useSeoMeta({
       </div>
     </section>
 
-    <!-- CTA CONTACT -->
-    <section class="cta-section">
-      <div class="cta-inner">
-        <h2>Une question sur l'Open ?</h2>
-        <p>N'hésitez pas à nous contacter pour toute demande d'information concernant le tournoi.</p>
-        <NuxtLink to="/contact" class="btn-primary">Nous contacter</NuxtLink>
-      </div>
-    </section>
 
   </div>
 </template>
@@ -327,39 +319,50 @@ useSeoMeta({
   font-family: inherit;
 }
 .reglement-btns { display: flex; flex-direction: column; gap: 8px; }
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 900px) {
 
-/* CTA */
-.cta-section {
-  background: linear-gradient(135deg, #0a1f4e 0%, #1455A4 100%);
-  padding: 4rem 2.5rem;
-  text-align: center;
+  /* HERO */
+  .hero {
+    min-height: 420px;
+    align-items: flex-end;
+  }
+  .hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(10, 30, 70, 0.92) 0%,
+      rgba(10, 30, 70, 0.6) 50%,
+      rgba(10, 30, 70, 0.2) 100%
+    );
+  }
+  .hero-content {
+    padding: 2rem 1.5rem 3rem;
+    max-width: 100%;
+  }
+  .hero-content h1 { font-size: 48px; }
+  .hero-content p { font-size: 15px; max-width: 100%; }
+  .hero-date { font-size: 13px; padding: 8px 14px; }
+
+  /* SECTIONS */
+  .section { padding: 3rem 1.25rem; }
+  .section h2 { font-size: 24px; }
+
+  /* MAIN GRID */
+  .main-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* SOCIALS */
+  .social-btns {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .soc-btn { width: 100%; justify-content: center; }
+
+  /* CTA */
+  .cta-section { padding: 3rem 1.5rem; }
+  .cta-inner h2 { font-size: 32px; }
+  .cta-inner p { font-size: 14px; }
 }
-.cta-inner { max-width: 500px; margin: 0 auto; }
-.cta-inner h2 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 42px;
-  font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.75rem;
-}
-.cta-inner p {
-  font-size: 15px;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
-  margin-bottom: 1.75rem;
-}
-.btn-primary {
-  display: inline-block;
-  background: #fff;
-  color: #0d1f3c;
-  padding: 13px 32px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.15s ease;
-}
-.btn-primary:hover { background: #e8f0fb; }
 </style>

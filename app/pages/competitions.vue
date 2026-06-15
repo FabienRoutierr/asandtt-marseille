@@ -334,4 +334,67 @@ const topPlayers = [
   padding-top: 1rem;
   margin-top: 0.5rem;
 }
+
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 900px) {
+
+  /* HERO */
+  .hero {
+    min-height: 420px;
+    align-items: flex-end;
+  }
+  .hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(10, 30, 70, 0.92) 0%,
+      rgba(10, 30, 70, 0.6) 50%,
+      rgba(10, 30, 70, 0.2) 100%
+    );
+  }
+  .hero-content {
+    padding: 2rem 1.5rem 3rem;
+    max-width: 100%;
+  }
+  .hero-content h1 { font-size: 38px; }
+  .hero-content p { font-size: 15px; max-width: 100%; }
+
+  /* SECTIONS */
+  .section { padding: 3rem 1.25rem; }
+  .section h2 { font-size: 24px; }
+  .section-intro { font-size: 14px; }
+
+  /* INTRO GRID */
+  .intro-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .intro-stats {
+    flex-direction: row;
+    gap: 12px;
+  }
+  .intro-stat {
+    flex: 1;
+    padding: 1rem 0.75rem;
+  }
+  .intro-stat-n { font-size: 32px; }
+  .intro-stat-l { font-size: 10px; letter-spacing: 0.5px; }
+
+  /* PLAYERS */
+  .players-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 1.5rem;
+  }
+  .player-rank { font-size: 22px; min-width: 36px; }
+  .player-name { font-size: 14px; }
+
+  /* JEUNES */
+  .jeunes-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .jeunes-img {
+    height: 240px;
+  }
+}
 </style>

@@ -433,4 +433,27 @@ function handleSubmit() {
   font-size: 13px;
   color: #388e3c;
 }
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 900px) {
+
+  /* SECTION */
+  .section { padding: 2rem 1.25rem; }
+
+  /* GRILLE PRINCIPALE */
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* FORMULAIRE : prénom/nom en colonne */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  /* CARDS */
+  .info-card, .tarifs-card, .map-card, .form-card {
+    padding: 1.25rem;
+  }
+}
 </style>

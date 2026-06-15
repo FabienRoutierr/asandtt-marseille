@@ -227,4 +227,27 @@ useSeoMeta({
   background: #010101;
   color: #fff;
 }
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 900px) {
+
+  /* SECTION */
+  .section { padding: 3rem 1.25rem; }
+  .section h2 { font-size: 24px; }
+
+  /* PROMO GRID */
+  .promo-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  /* AFFICHE remontée au-dessus du texte */
+  .promo-poster { order: -1; }
+
+  /* BOUTONS SOCIAUX */
+  .promo-btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .social-btn { justify-content: center; width: 100%; }
+}
 </style>

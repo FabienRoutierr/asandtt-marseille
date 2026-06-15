@@ -175,18 +175,6 @@ const pratiqueIcons = {
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta-section">
-      <div class="cta-inner">
-        <h2>Rejoignez-nous !</h2>
-        <p>Que vous soyez jeune ou adulte, compétiteur ou simple amateur de ping-pong, vous êtes les bienvenus au club de l'ASAND.</p>
-        <div class="cta-btns">
-          <NuxtLink to="/contact" class="btn-primary">Nous contacter</NuxtLink>
-          <a href="https://www.facebook.com" target="_blank" class="btn-outline">Nous suivre</a>
-        </div>
-      </div>
-    </section>
-
   </div>
 </template>
 
@@ -194,7 +182,7 @@ const pratiqueIcons = {
 /* HERO */
 .hero {
   position: relative;
-  min-height: 520px;
+  min-height: 620px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -547,36 +535,6 @@ const pratiqueIcons = {
   line-height: 1.6;
 }
 
-/* CTA */
-.cta-section {
-  background: linear-gradient(135deg, #0a1f4e 0%, #1455A4 100%);
-  padding: 5rem 2.5rem;
-  text-align: center;
-}
-.cta-inner {
-  max-width: 600px;
-  margin: 0 auto;
-}
-.cta-inner h2 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 48px;
-  font-weight: 700;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 1rem;
-}
-.cta-inner p {
-  font-size: 16px;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.7;
-  margin-bottom: 2rem;
-}
-.cta-btns {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
 .btn-primary {
   background: #fff;
   color: #0d1f3c;
@@ -600,4 +558,84 @@ const pratiqueIcons = {
   transition: background 0.15s ease;
 }
 .btn-outline:hover { background: rgba(255,255,255,0.08); }
+
+/* ============ RESPONSIVE MOBILE ============ */
+@media (max-width: 900px) {
+
+  /* HERO */
+  .hero {
+    min-height: 420px;
+    align-items: flex-end;
+  }
+  .hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(10, 30, 70, 0.92) 0%,
+      rgba(10, 30, 70, 0.6) 50%,
+      rgba(10, 30, 70, 0.2) 100%
+    );
+  }
+  .hero-content {
+    padding: 2rem 1.5rem 3rem;
+    max-width: 100%;
+  }
+  .hero-content h1 { font-size: 42px; }
+  .hero-content p { font-size: 15px; max-width: 100%; }
+
+  /* SECTIONS */
+  .section { padding: 3rem 1.25rem; }
+  .section h2 { font-size: 24px; }
+  .section-intro { font-size: 14px; }
+
+  /* BUREAU */
+  .bureau-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .bureau-img { height: 280px; }
+
+  /* PRÉSENTATION */
+  .presentation-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .presentation-img {
+    height: 260px;
+    order: -1;
+  }
+
+  /* COACHES */
+  .coaches-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .coach-img { height: 260px; }
+
+  /* PRATIQUES */
+  .pratiques-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .pratique-card { padding: 1.25rem 1rem; }
+
+  /* CTA */
+  .cta-section { padding: 3.5rem 1.5rem; }
+  .cta-inner h2 { font-size: 34px; }
+  .cta-inner p { font-size: 14px; }
+  .cta-btns {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn-primary, .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .pratiques-grid {
+    grid-template-columns: 1fr;
+  }
+  .bureau-img { height: 220px; }
+}
 </style>

@@ -229,32 +229,32 @@ onUnmounted(() => {
         <div class="news-grid">
         <div class="news-card">
   <div class="news-img">
-    <img src="/images/photo_asand.png" alt="Inscriptions" draggable="false" />
+    <img src="/images/kelvin-sert.jpg" alt="Inscriptions" draggable="false" />
   </div>
   <div class="news-body">
     <span class="news-tag">Vie du club</span>
     <p class="news-title">Inscriptions ouvertes toute l'année !</p>
-    <span class="news-date">11 décembre 2024</span>
+    <span class="news-date">11 juin 2026</span>
   </div>
 </div>
 <div class="news-card">
   <div class="news-img">
-    <img src="/images/photo_asand.png" alt="Réseaux sociaux" draggable="false" />
+    <img src="/images/jerome-pauly.jpg" alt="Réseaux sociaux" draggable="false" />
   </div>
   <div class="news-body">
-    <span class="news-tag">Réseaux sociaux</span>
-    <p class="news-title">Suivez-nous sur Facebook et Instagram</p>
-    <span class="news-date">28 décembre 2021</span>
+    <span class="news-tag">RETOUR</span>
+    <p class="news-title">Retour de Jérôme PAULY au club de l’ASAND</p>
+    <span class="news-date">25 mai 2026</span>
   </div>
 </div>
 <div class="news-card">
   <div class="news-img">
-    <img src="/images/photo_asand.png" alt="Compétition" draggable="false" />
+    <img src="/images/asand-pertuis.jpg" alt="Compétition" draggable="false" />
   </div>
   <div class="news-body">
     <span class="news-tag">Compétition</span>
     <p class="news-title">Résultats de la dernière journée de championnat</p>
-    <span class="news-date">À venir</span>
+    <span class="news-date">8 mai 2026</span>
   </div>
 </div>
         </div>
@@ -667,6 +667,18 @@ onUnmounted(() => {
   border: 0.5px solid #e4eaf2;
   border-radius: 14px;
   overflow: hidden;
+}
+.news-img {
+  height: 240px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.news-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .news-img-placeholder {
   height: 240px;

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar" :class="{ scrolled }">
     <NuxtLink to="/" class="logo-wrap">
       <img src="/images/logo_asand3.png" alt="Logo ASANDTT" class="logo-img" />
     </NuxtLink>
@@ -35,22 +35,41 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 const menuOpen = ref(false)
+const scrolled = ref(false)
+
+function onScroll() {
+  scrolled.value = window.scrollY > 40
+}
+
+onMounted(() => window.addEventListener('scroll', onScroll))
+onUnmounted(() => window.removeEventListener('scroll', onScroll))
 </script>
 
 <style scoped>
 .navbar {
   background: #fff;
   border-bottom: 0.5px solid #e8edf3;
+  border-radius: 0 0 20px 20px;
   padding: 0 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 120px;
-  position: sticky;
-  top: 0;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
   z-index: 100;
+  transition: height 0.3s ease, box-shadow 0.3s ease;
+}
+.navbar.scrolled {
+  height: 72px;
+  box-shadow: 0 4px 20px rgba(10, 30, 70, 0.08);
+}
+.navbar.scrolled .logo-img {
+  height: 55px;
 }
 .logo-wrap {
   display: flex;
@@ -63,6 +82,7 @@ const menuOpen = ref(false)
   height: 100px;
   width: auto;
   object-fit: contain;
+  transition: height 0.3s ease;
 }
 .nav-links {
   display: flex;
