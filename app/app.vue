@@ -6,6 +6,9 @@ useSeoMeta({
   ogDescription: 'Club de tennis de table à Marseille. Tous niveaux, tous âges. Loisir et compétition.',
 })
 useHead({
+    meta: [
+    { name: 'color-scheme', content: 'light' }
+  ],
   link: [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
