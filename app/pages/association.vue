@@ -215,6 +215,7 @@ const pratiqueIcons = {
             class="pratique-card"
           >
             <div class="pratique-icon">
+              <!-- eslint-disable-next-line vue/no-v-html -->
               <svg
                 viewBox="0 0 24 24"
                 aria-hidden="true"
