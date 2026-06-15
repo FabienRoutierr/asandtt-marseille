@@ -18,7 +18,7 @@ useHead({
 </script>
 
 <template>
-  <UApp>
+  <UApp color-mode="light">
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
