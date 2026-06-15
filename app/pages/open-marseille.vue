@@ -3,22 +3,51 @@ definePageMeta({ layout: 'default' })
 
 useSeoMeta({
   title: 'Open de Marseille — ASANDTT',
-  description: 'Le 29ème Open National de Marseille aura lieu dimanche 30 août 2026. Inscriptions et règlement.',
+  description: 'Le 29ème Open National de Marseille aura lieu dimanche 30 août 2026. Inscriptions et règlement.'
 })
 </script>
 
 <template>
   <div>
-
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-overlay"></div>
-      <img src="/images/open-marseille.jpg" alt="Open de Marseille" class="hero-bg" />
+      <div class="hero-overlay" />
+      <img
+        src="/images/open-marseille.jpg"
+        alt="Open de Marseille"
+        class="hero-bg"
+      >
       <div class="hero-content">
-        <h1>Open de<br/><strong>Marseille</strong></h1>
+        <h1>Open de<br><strong>Marseille</strong></h1>
         <p>Le rendez-vous annuel du tennis de table marseillais. Une journée de compétition et de convivialité ouverte à tous les joueurs classés.</p>
         <div class="hero-date">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          ><rect
+            x="3"
+            y="4"
+            width="18"
+            height="18"
+            rx="2"
+          /><line
+            x1="16"
+            y1="2"
+            x2="16"
+            y2="6"
+          /><line
+            x1="8"
+            y1="2"
+            x2="8"
+            y2="6"
+          /><line
+            x1="3"
+            y1="10"
+            x2="21"
+            y2="10"
+          /></svg>
           <span>Dimanche 30 août 2026</span>
         </div>
       </div>
@@ -27,7 +56,6 @@ useSeoMeta({
     <!-- REMERCIEMENTS + INFOS -->
     <section class="section section-white">
       <div class="section-inner main-grid">
-
         <div class="main-text">
           <h2>Merci pour le 28ème Open !</h2>
           <p>Un immense merci à tous pour votre présence lors du <strong>28ème Open National de Marseille</strong> qui a eu lieu dimanche 31 août 2025 !</p>
@@ -37,16 +65,61 @@ useSeoMeta({
           <div class="social-invite">
             <p>Suivez-nous sur les réseaux pour les dernières infos sur l'Open :</p>
             <div class="social-btns">
-              <a href="https://www.facebook.com/p/ASAND-Marseille-Tennis-de-Table-100029105544587/?locale=fr_FR" target="_blank" class="soc-btn facebook">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              <a
+                href="https://www.facebook.com/p/ASAND-Marseille-Tennis-de-Table-100029105544587/?locale=fr_FR"
+                target="_blank"
+                class="soc-btn facebook"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  width="16"
+                  height="16"
+                ><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
                 Facebook
               </a>
-              <a href="https://www.instagram.com/asandmarseille/" target="_blank" class="soc-btn instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              <a
+                href="https://www.instagram.com/asandmarseille/"
+                target="_blank"
+                class="soc-btn instagram"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  width="16"
+                  height="16"
+                ><rect
+                  x="2"
+                  y="2"
+                  width="20"
+                  height="20"
+                  rx="5"
+                /><circle
+                  cx="12"
+                  cy="12"
+                  r="4"
+                /><circle
+                  cx="17.5"
+                  cy="6.5"
+                  r="1"
+                  fill="currentColor"
+                  stroke="none"
+                /></svg>
                 Instagram
               </a>
-              <a href="https://www.tiktok.com/@asand.marseille" target="_blank" class="soc-btn tiktok">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+              <a
+                href="https://www.tiktok.com/@asand.marseille"
+                target="_blank"
+                class="soc-btn tiktok"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  width="16"
+                  height="16"
+                ><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z" /></svg>
                 TikTok
               </a>
             </div>
@@ -54,20 +127,42 @@ useSeoMeta({
         </div>
 
         <div class="main-side">
-
           <!-- INSCRIPTIONS -->
           <div class="info-block inscriptions">
             <div class="info-block-header">
               <div class="info-block-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
               </div>
               <div>
                 <h3>Inscriptions 2026</h3>
               </div>
             </div>
             <p>Les inscriptions pour l'Open de Marseille 2026 ne sont pas encore ouvertes. Revenez bientôt ou suivez-nous sur les réseaux pour être informé dès l'ouverture.</p>
-            <button class="btn-disabled" disabled>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <button
+              class="btn-disabled"
+              disabled
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                width="16"
+                height="16"
+              ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle
+                cx="9"
+                cy="7"
+                r="4"
+              /></svg>
               Inscription au tournoi annuel
             </button>
           </div>
@@ -76,7 +171,22 @@ useSeoMeta({
           <div class="info-block reglement">
             <div class="info-block-header">
               <div class="info-block-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line
+                  x1="16"
+                  y1="13"
+                  x2="8"
+                  y2="13"
+                /><line
+                  x1="16"
+                  y1="17"
+                  x2="8"
+                  y2="17"
+                /></svg>
               </div>
               <div>
                 <h3>Règlement 2026</h3>
@@ -84,22 +194,39 @@ useSeoMeta({
             </div>
             <p>Le règlement de l'Open de Marseille 2026 sera communiqué quelques semaines avant le tournoi.</p>
             <div class="reglement-btns">
-              <button class="btn-disabled" disabled>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <button
+                class="btn-disabled"
+                disabled
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  width="16"
+                  height="16"
+                ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>
                 Règlement sportif
               </button>
-              <button class="btn-disabled" disabled>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <button
+                class="btn-disabled"
+                disabled
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  width="16"
+                  height="16"
+                ><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>
                 Règlement général
               </button>
             </div>
           </div>
-
         </div>
       </div>
     </section>
-
-
   </div>
 </template>
 

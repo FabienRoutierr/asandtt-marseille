@@ -1,7 +1,17 @@
 <template>
-  <nav class="navbar" :class="{ scrolled }">
-    <NuxtLink to="/" class="logo-wrap">
-      <img src="/images/logo_asand3.png" alt="Logo ASANDTT" class="logo-img" />
+  <nav
+    class="navbar"
+    :class="{ scrolled }"
+  >
+    <NuxtLink
+      to="/"
+      class="logo-wrap"
+    >
+      <img
+        src="/images/logo_asand3.png"
+        alt="Logo ASANDTT"
+        class="logo-img"
+      >
     </NuxtLink>
 
     <ul class="nav-links">
@@ -10,25 +20,69 @@
       <li><NuxtLink to="/competitions">Compétitions</NuxtLink></li>
       <li><NuxtLink to="/open-marseille">Open de Marseille</NuxtLink></li>
       <li><NuxtLink to="/promotion">Promotion</NuxtLink></li>
-      <li><NuxtLink to="/contact" class="nav-cta">Nous contacter</NuxtLink></li>
+      <li>
+        <NuxtLink
+          to="/contact"
+          class="nav-cta"
+        >Nous contacter</NuxtLink>
+      </li>
     </ul>
 
     <!-- Burger -->
-    <button class="burger" @click="menuOpen = !menuOpen" :class="{ open: menuOpen }" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button
+      class="burger"
+      :class="{ open: menuOpen }"
+      aria-label="Menu"
+      @click="menuOpen = !menuOpen"
+    >
+      <span />
+      <span />
+      <span />
     </button>
 
     <!-- Menu mobile -->
-    <div class="mobile-menu" :class="{ open: menuOpen }">
+    <div
+      class="mobile-menu"
+      :class="{ open: menuOpen }"
+    >
       <ul>
-        <li><NuxtLink to="/" @click="menuOpen = false">Accueil</NuxtLink></li>
-        <li><NuxtLink to="/association" @click="menuOpen = false">L'association</NuxtLink></li>
-        <li><NuxtLink to="/competitions" @click="menuOpen = false">Compétitions</NuxtLink></li>
-        <li><NuxtLink to="/open-marseille" @click="menuOpen = false">Open de Marseille</NuxtLink></li>
-        <li><NuxtLink to="/promotion" @click="menuOpen = false">Promotion</NuxtLink></li>
-        <li><NuxtLink to="/contact" class="mobile-cta" @click="menuOpen = false">Nous contacter</NuxtLink></li>
+        <li>
+          <NuxtLink
+            to="/"
+            @click="menuOpen = false"
+          >Accueil</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            to="/association"
+            @click="menuOpen = false"
+          >L'association</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            to="/competitions"
+            @click="menuOpen = false"
+          >Compétitions</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            to="/open-marseille"
+            @click="menuOpen = false"
+          >Open de Marseille</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            to="/promotion"
+            @click="menuOpen = false"
+          >Promotion</NuxtLink>
+        </li>
+        <li>
+          <NuxtLink
+            to="/contact"
+            class="mobile-cta"
+            @click="menuOpen = false"
+          >Nous contacter</NuxtLink>
+        </li>
       </ul>
     </div>
   </nav>
@@ -36,6 +90,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+
 const menuOpen = ref(false)
 const scrolled = ref(false)
 

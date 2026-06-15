@@ -3,7 +3,7 @@ definePageMeta({ layout: 'default' })
 
 useSeoMeta({
   title: 'Nous contacter — ASANDTT Marseille',
-  description: 'Contactez le club ASANDTT Marseille, gymnase Antonin Artaud, 13013 Marseille.',
+  description: 'Contactez le club ASANDTT Marseille, gymnase Antonin Artaud, 13013 Marseille.'
 })
 
 const form = ref({
@@ -23,36 +23,56 @@ function handleSubmit() {
 
 <template>
   <div>
-
     <!-- CONTENU -->
     <section class="section section-white">
       <div class="section-inner content-grid">
-
         <!-- COLONNE GAUCHE : infos + tarifs + map -->
         <div class="left-col">
-
           <!-- INFOS PRATIQUES -->
           <div class="info-card">
             <h3>Contact</h3>
             <div class="info-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              ><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
               <div>
                 <strong>Téléphone</strong>
                 <span>04 91 78 80 00</span>
               </div>
             </div>
             <div class="info-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              ><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle
+                cx="12"
+                cy="10"
+                r="3"
+              /></svg>
               <div>
                 <strong>Adresse</strong>
-                <span>Gymnase Antonin Artaud<br/>25 chemin Notre Dame de Consolation<br/>13013 Marseille</span>
+                <span>Gymnase Antonin Artaud<br>25 chemin Notre Dame de Consolation<br>13013 Marseille</span>
               </div>
             </div>
             <div class="info-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              ><circle
+                cx="12"
+                cy="12"
+                r="10"
+              /><polyline points="12 6 12 12 16 14" /></svg>
               <div>
                 <strong>Horaires</strong>
-                <span>Lun – Ven : 17h30 – 21h<br/>Mercredi après-midi et vendredi soir pour les enfants<br/>Samedi : compétitions</span>
+                <span>Lun – Ven : 17h30 – 21h<br>Mercredi après-midi et vendredi soir pour les enfants<br>Samedi : compétitions</span>
               </div>
             </div>
           </div>
@@ -62,26 +82,28 @@ function handleSubmit() {
             <h3>Tarifs</h3>
             <div class="tarif-item">
               <div class="tarif-label">
-                <span class="tarif-dot competition"></span>
+                <span class="tarif-dot competition" />
                 <span>Compétiteur</span>
               </div>
               <span class="tarif-price">À définir</span>
             </div>
             <div class="tarif-item">
               <div class="tarif-label">
-                <span class="tarif-dot jeune"></span>
+                <span class="tarif-dot jeune" />
                 <span>Jeune</span>
               </div>
               <span class="tarif-price">À définir</span>
             </div>
             <div class="tarif-item">
               <div class="tarif-label">
-                <span class="tarif-dot loisir"></span>
+                <span class="tarif-dot loisir" />
                 <span>Loisir</span>
               </div>
               <span class="tarif-price">À définir</span>
             </div>
-            <p class="tarif-note">Les inscriptions sont possibles toute l'année.</p>
+            <p class="tarif-note">
+              Les inscriptions sont possibles toute l'année.
+            </p>
           </div>
 
           <!-- MAP -->
@@ -97,18 +119,27 @@ function handleSubmit() {
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 title="Gymnase Antonin Artaud Marseille"
-              ></iframe>
+              />
             </div>
-            
-              <a href="https://maps.google.com/?q=Gymnase+Antonin+Artaud+25+chemin+Notre+Dame+de+Consolation+13013+Marseille"
+
+            <a
+              href="https://maps.google.com/?q=Gymnase+Antonin+Artaud+25+chemin+Notre+Dame+de+Consolation+13013+Marseille"
               target="_blank"
               class="map-link"
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              ><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle
+                cx="12"
+                cy="10"
+                r="3"
+              /></svg>
               Ouvrir dans Google Maps
             </a>
           </div>
-
         </div>
 
         <!-- COLONNE DROITE : formulaire -->
@@ -116,48 +147,96 @@ function handleSubmit() {
           <div class="form-card">
             <h3>Nous contacter</h3>
 
-            <div v-if="submitted" class="success-msg">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div
+              v-if="submitted"
+              class="success-msg"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              ><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
               <div>
                 <strong>Message envoyé !</strong>
                 <span>Nous vous répondrons très bientôt.</span>
               </div>
             </div>
 
-            <form v-else @submit.prevent="handleSubmit" class="contact-form">
+            <form
+              v-else
+              class="contact-form"
+              @submit.prevent="handleSubmit"
+            >
               <div class="form-row">
                 <div class="form-group">
                   <label>Prénom <span class="required">*</span></label>
-                  <input v-model="form.prenom" type="text" placeholder="Votre prénom" required />
+                  <input
+                    v-model="form.prenom"
+                    type="text"
+                    placeholder="Votre prénom"
+                    required
+                  >
                 </div>
                 <div class="form-group">
                   <label>Nom <span class="required">*</span></label>
-                  <input v-model="form.nom" type="text" placeholder="Votre nom" required />
+                  <input
+                    v-model="form.nom"
+                    type="text"
+                    placeholder="Votre nom"
+                    required
+                  >
                 </div>
               </div>
               <div class="form-group">
                 <label>Adresse email <span class="required">*</span></label>
-                <input v-model="form.email" type="email" placeholder="votre@email.com" required />
+                <input
+                  v-model="form.email"
+                  type="email"
+                  placeholder="votre@email.com"
+                  required
+                >
               </div>
               <div class="form-group">
                 <label>Numéro de téléphone <span class="required">*</span></label>
-                <input v-model="form.telephone" type="tel" placeholder="06 XX XX XX XX" required />
+                <input
+                  v-model="form.telephone"
+                  type="tel"
+                  placeholder="06 XX XX XX XX"
+                  required
+                >
               </div>
               <div class="form-group">
                 <label>Message <span class="required">*</span></label>
-                <textarea v-model="form.message" rows="6" placeholder="Votre message..." required></textarea>
+                <textarea
+                  v-model="form.message"
+                  rows="6"
+                  placeholder="Votre message..."
+                  required
+                />
               </div>
-              <button type="submit" class="btn-submit">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <button
+                type="submit"
+                class="btn-submit"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                ><line
+                  x1="22"
+                  y1="2"
+                  x2="11"
+                  y2="13"
+                /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>
                 Envoyer le message
               </button>
             </form>
           </div>
         </div>
-
       </div>
     </section>
-
   </div>
 </template>
 

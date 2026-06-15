@@ -1,6 +1,13 @@
 <template>
-  <div class="club-photo-wrap" :style="{ height: height }">
-    <img src="../images/photo_asand.png" :alt="alt" class="club-photo" />
+  <div
+    class="club-photo-wrap"
+    :style="{ height: height }"
+  >
+    <img
+      src="../images/photo_asand.png"
+      :alt="alt"
+      class="club-photo"
+    >
   </div>
 </template>
 

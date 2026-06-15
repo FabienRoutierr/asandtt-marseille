@@ -5,7 +5,7 @@ definePageMeta({ layout: 'default' })
 
 useSeoMeta({
   title: 'ASANDTT Marseille — Tennis de table',
-  description: 'Club de tennis de table à Marseille. Tous niveaux, tous âges. Loisir et compétition.',
+  description: 'Club de tennis de table à Marseille. Tous niveaux, tous âges. Loisir et compétition.'
 })
 
 // --- STATS COUNTER ---
@@ -35,7 +35,7 @@ let currentTranslate = 0
 let dragStartTranslate = 0
 let hasDragged = false
 
-const logoCount = 15  // nombre de logos dans UN seul groupe
+const logoCount = 15 // nombre de logos dans UN seul groupe
 const logoWidth = 180
 const gap = 64
 const groupWidth = logoCount * (logoWidth + gap)
@@ -90,16 +90,14 @@ function onDragMove(e) {
   }
 }
 
-function onDragEnd(e) {
+function onDragEnd(_e) {
   if (!isDragging) return
   isDragging = false
   startAutoplay()
 }
 
-function onPartnerClick(e) {
-  if (hasDragged) {
-    e.preventDefault()
-  }
+function onPartnerClick(_e) {
+  if (hasDragged) _e.preventDefault()
 }
 
 onMounted(() => {
@@ -123,260 +121,656 @@ onUnmounted(() => {
   stopAutoplay()
 })
 </script>
+
 <template>
   <div>
-
     <!-- HERO -->
-<section class="hero">
-  <div class="hero-overlay"></div>
-  <img src="/images/photo_pierre.jpg" alt="Gymnase ASANDTT Marseille" class="hero-bg" />
-  <div class="hero-content">
-    <h1>Le plus grand club<br/><strong>de Marseille</strong></h1>
-    <p>Rejoignez l'ASAND — 20 tables, tous niveaux, tous âges. Du loisir à la compétition, dans un grand gymnase au cœur de Marseille.</p>
-    <div class="hero-btns">
-      <NuxtLink to="/contact" class="btn-primary">Nous rejoindre</NuxtLink>
-      <NuxtLink to="/association" class="btn-outline">Découvrir le club</NuxtLink>
-    </div>
-  </div>
-</section>
+    <section class="hero">
+      <div class="hero-overlay" />
+      <img
+        src="/images/photo_pierre.jpg"
+        alt="Gymnase ASANDTT Marseille"
+        class="hero-bg"
+      >
+      <div class="hero-content">
+        <h1>Le plus grand club<br><strong>de Marseille</strong></h1>
+        <p>Rejoignez l'ASAND — 20 tables, tous niveaux, tous âges. Du loisir à la compétition, dans un grand gymnase au cœur de Marseille.</p>
+        <div class="hero-btns">
+          <NuxtLink
+            to="/contact"
+            class="btn-primary"
+          >Nous rejoindre</NuxtLink>
+          <NuxtLink
+            to="/association"
+            class="btn-outline"
+          >Découvrir le club</NuxtLink>
+        </div>
+      </div>
+    </section>
 
     <!-- STATS -->
-<!-- STATS -->
-<div class="stats-row" ref="statsSection">
-  <div class="stat">
-    <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-    <span class="stat-n">{{ counts.tables }}</span>
-    <span class="stat-l">Tables</span>
-  </div>
-  <div class="stat">
-    <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    <span class="stat-n">{{ counts.licencies }}+</span>
-    <span class="stat-l">Licenciés</span>
-  </div>
-  <div class="stat">
-    <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
-    <span class="stat-n">{{ counts.equipes }}</span>
-    <span class="stat-l">Équipes</span>
-  </div>
-  <div class="stat">
-    <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    <span class="stat-n">{{ counts.ans }}+</span>
-    <span class="stat-l">Ans d'histoire</span>
-  </div>
-</div>
+    <!-- STATS -->
+    <div
+      ref="statsSection"
+      class="stats-row"
+    >
+      <div class="stat">
+        <svg
+          class="stat-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        ><rect
+          x="3"
+          y="3"
+          width="18"
+          height="18"
+          rx="2"
+        /><line
+          x1="3"
+          y1="9"
+          x2="21"
+          y2="9"
+        /><line
+          x1="3"
+          y1="15"
+          x2="21"
+          y2="15"
+        /><line
+          x1="9"
+          y1="3"
+          x2="9"
+          y2="21"
+        /><line
+          x1="15"
+          y1="3"
+          x2="15"
+          y2="21"
+        /></svg>
+        <span class="stat-n">{{ counts.tables }}</span>
+        <span class="stat-l">Tables</span>
+      </div>
+      <div class="stat">
+        <svg
+          class="stat-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        ><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle
+          cx="9"
+          cy="7"
+          r="4"
+        /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+        <span class="stat-n">{{ counts.licencies }}+</span>
+        <span class="stat-l">Licenciés</span>
+      </div>
+      <div class="stat">
+        <svg
+          class="stat-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        ><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" /></svg>
+        <span class="stat-n">{{ counts.equipes }}</span>
+        <span class="stat-l">Équipes</span>
+      </div>
+      <div class="stat">
+        <svg
+          class="stat-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+        ><circle
+          cx="12"
+          cy="12"
+          r="10"
+        /><polyline points="12 6 12 12 16 14" /></svg>
+        <span class="stat-n">{{ counts.ans }}+</span>
+        <span class="stat-l">Ans d'histoire</span>
+      </div>
+    </div>
 
-  <!-- LE CLUB -->
-<section class="section section-white">
-  <div class="section-inner">
-    <h2>Pratiquer, progresser, partager</h2>
-    <p class="section-intro">Une structure conviviale pour découvrir ou se perfectionner au tennis de table. Débutant ou compétiteur, nous vous accueillons dans une ambiance dynamique.</p>
-    <div class="cards-grid">
-<NuxtLink to="/competitions" class="card">
-  <div class="card-img">
-    <img src="/images/photo_mondon.jpeg" alt="Compétitions" draggable="false" />
-    <div class="card-img-overlay">
-      <h3>Compétitions</h3>
-    </div>
-  </div>
-  <div class="card-body">
-    <p>Championnats par équipes et individuels pour tous les niveaux.</p>
-  </div>
-</NuxtLink>
+    <!-- LE CLUB -->
+    <section class="section section-white">
+      <div class="section-inner">
+        <h2>Pratiquer, progresser, partager</h2>
+        <p class="section-intro">
+          Une structure conviviale pour découvrir ou se perfectionner au tennis de table. Débutant ou compétiteur, nous vous accueillons dans une ambiance dynamique.
+        </p>
+        <div class="cards-grid">
+          <NuxtLink
+            to="/competitions"
+            class="card"
+          >
+            <div class="card-img">
+              <img
+                src="/images/photo_mondon.jpeg"
+                alt="Compétitions"
+                draggable="false"
+              >
+              <div class="card-img-overlay">
+                <h3>Compétitions</h3>
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Championnats par équipes et individuels pour tous les niveaux.</p>
+            </div>
+          </NuxtLink>
 
-<NuxtLink to="/inscription" class="card">
-  <div class="card-img">
-    <img src="/images/photo-lucas.jpg" alt="Entraînements" draggable="false" />
-    <div class="card-img-overlay">
-      <h3>Entraînements</h3>
-    </div>
-  </div>
-  <div class="card-body">
-    <p>Plusieurs créneaux par semaine, du lundi au vendredi.</p>
-  </div>
-</NuxtLink>
+          <NuxtLink
+            to="/inscription"
+            class="card"
+          >
+            <div class="card-img">
+              <img
+                src="/images/photo-lucas.jpg"
+                alt="Entraînements"
+                draggable="false"
+              >
+              <div class="card-img-overlay">
+                <h3>Entraînements</h3>
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Plusieurs créneaux par semaine, du lundi au vendredi.</p>
+            </div>
+          </NuxtLink>
 
-<NuxtLink to="/open-marseille" class="card">
-  <div class="card-img">
-    <img src="/images/open-marseille.jpg" alt="Open de Marseille" draggable="false" />
-    <div class="card-img-overlay">
-      <h3>Open de Marseille</h3>
-    </div>
-  </div>
-  <div class="card-body">
-    <p>Notre tournoi annuel, ouvert à tous les joueurs classés.</p>
-  </div>
-</NuxtLink>
+          <NuxtLink
+            to="/open-marseille"
+            class="card"
+          >
+            <div class="card-img">
+              <img
+                src="/images/open-marseille.jpg"
+                alt="Open de Marseille"
+                draggable="false"
+              >
+              <div class="card-img-overlay">
+                <h3>Open de Marseille</h3>
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Notre tournoi annuel, ouvert à tous les joueurs classés.</p>
+            </div>
+          </NuxtLink>
 
-<NuxtLink to="/association" class="card">
-  <div class="card-img">
-    <img src="/images/photo_asand.png" alt="L'association" draggable="false" />
-    <div class="card-img-overlay">
-      <h3>L'association</h3>
-    </div>
-  </div>
-  <div class="card-body">
-    <p>Découvrez notre histoire, nos valeurs et notre engagement.</p>
-  </div>
-</NuxtLink>
-    </div>
-    </div>
-</section>
+          <NuxtLink
+            to="/association"
+            class="card"
+          >
+            <div class="card-img">
+              <img
+                src="/images/photo_asand.png"
+                alt="L'association"
+                draggable="false"
+              >
+              <div class="card-img-overlay">
+                <h3>L'association</h3>
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Découvrez notre histoire, nos valeurs et notre engagement.</p>
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
 
     <!-- ACTUALITÉS -->
     <section class="section section-grey">
       <div class="section-inner">
         <h2>Actualités</h2>
         <div class="news-grid">
-        <div class="news-card">
-  <div class="news-img">
-    <img src="/images/kelvin-sert.jpg" alt="Inscriptions" draggable="false" />
-  </div>
-  <div class="news-body">
-    <span class="news-tag">Vie du club</span>
-    <p class="news-title">Inscriptions ouvertes toute l'année !</p>
-    <span class="news-date">11 juin 2026</span>
-  </div>
-</div>
-<div class="news-card">
-  <div class="news-img">
-    <img src="/images/jerome-pauly.jpg" alt="Réseaux sociaux" draggable="false" />
-  </div>
-  <div class="news-body">
-    <span class="news-tag">RETOUR</span>
-    <p class="news-title">Retour de Jérôme PAULY au club de l’ASAND</p>
-    <span class="news-date">25 mai 2026</span>
-  </div>
-</div>
-<div class="news-card">
-  <div class="news-img">
-    <img src="/images/asand-pertuis.jpg" alt="Compétition" draggable="false" />
-  </div>
-  <div class="news-body">
-    <span class="news-tag">Compétition</span>
-    <p class="news-title">Résultats de la dernière journée de championnat</p>
-    <span class="news-date">8 mai 2026</span>
-  </div>
-</div>
+          <div class="news-card">
+            <div class="news-img">
+              <img
+                src="/images/kelvin-sert.jpg"
+                alt="Inscriptions"
+                draggable="false"
+              >
+            </div>
+            <div class="news-body">
+              <span class="news-tag">Vie du club</span>
+              <p class="news-title">
+                Inscriptions ouvertes toute l'année !
+              </p>
+              <span class="news-date">11 juin 2026</span>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-img">
+              <img
+                src="/images/jerome-pauly.jpg"
+                alt="Réseaux sociaux"
+                draggable="false"
+              >
+            </div>
+            <div class="news-body">
+              <span class="news-tag">RETOUR</span>
+              <p class="news-title">
+                Retour de Jérôme PAULY au club de l’ASAND
+              </p>
+              <span class="news-date">25 mai 2026</span>
+            </div>
+          </div>
+          <div class="news-card">
+            <div class="news-img">
+              <img
+                src="/images/asand-pertuis.jpg"
+                alt="Compétition"
+                draggable="false"
+              >
+            </div>
+            <div class="news-body">
+              <span class="news-tag">Compétition</span>
+              <p class="news-title">
+                Résultats de la dernière journée de championnat
+              </p>
+              <span class="news-date">8 mai 2026</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-<!-- PARTENAIRES -->
-<section class="section section-white partenaires">
-  <div class="section-inner-full">
-    <h2 style="text-align:center; margin-bottom:2.5rem;">Nos partenaires</h2>
-    <div
-      class="partners-viewport"
-      @mousedown="onDragStart"
-      @mousemove="onDragMove"
-      @mouseup="onDragEnd"
-      @mouseleave="onDragEnd"
-      @touchstart="onDragStart"
-      @touchmove="onDragMove"
-      @touchend="onDragEnd"
-    >
-<div class="partners-track" ref="partnerTrack">
-    <a href="https://www.departement13.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-département-13.png" alt="Département 13" draggable="false" />
-  </a>
-  <a href="https://www.marseille.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-ville-de-marseille.jpg" alt="Ville de Marseille" draggable="false" />
-  </a>
-  <a href="https://www.fftt.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-fftt.jpg" alt="FFTT" class="logo-large" draggable="false" />
-  </a>
-  <a href="https://high-com.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-HIGHCOM.png" alt="Highcom" draggable="false" />
-  </a>
-  <a href="https://www.google.com/maps/search/Nanoglou+Radiateurs+Marseille" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-NANOGLOU.png" alt="Nanoglou" class="logo-small" draggable="false" />
-  </a>
-  <a href="https://www.groupe-maurin.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-groupe-MAURIN.png" alt="Groupe Maurin" draggable="false" />
-  </a>
-  <a href="https://www.speedy.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-SPEEDY.png" alt="Speedy" draggable="false" />
-  </a>
-  <a href="https://www.agencedusport.fr/" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-agence-nationale-du-sport.png" alt="Agence Nationale du Sport" draggable="false" />
-  </a>
-  <a href="https://www.tripadvisor.fr/Restaurant_Review-g187253-d4010930-Reviews-Les_Terrasses_de_St_Mitre-Marseille_Bouches_du_Rhone_Provence_Alpes_Cote_d_Azur.html" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-terrasses-saint-mitre.png" alt="Terrasses Saint-Mitre" draggable="false" />
-  </a>
-  <a href="https://www.cornilleau.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-CORNILLEAU.png" alt="Cornilleau" draggable="false" />
-  </a>
-  <a href="https://www.silver-equipment.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-SILVER-EQUIPMENT.jpg" alt="Silver Equipment" draggable="false" />
-  </a>
-  <a href="https://www.tennisdetableregionsud.fr/index.php/accueil/general/:infos" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo_liguepaca.jpg" alt="Ligue PACA" draggable="false" />
-  </a>
-  <a href="https://www.cd13tt.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-cd13tt.png" alt="CD13TT" draggable="false" />
-  </a>
-  <a href="https://www.maregionsud.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/LOGO-région-SUD.jpg" alt="Région Sud" draggable="false" />
-  </a>
-  <a href="https://www.gewo-tt.com/en/" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-gewo.png" alt="Gewo" draggable="false" />
-  </a>
-  <!-- Duplication pour boucle -->
-    <a href="https://www.departement13.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-département-13.png" alt="Département 13" draggable="false" />
-  </a>
-  <a href="https://www.marseille.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-ville-de-marseille.jpg" alt="Ville de Marseille" draggable="false" />
-  </a>
-  <a href="https://www.fftt.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-fftt.jpg" alt="FFTT" class="logo-large" draggable="false" />
-  </a>
-  <a href="https://high-com.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-HIGHCOM.png" alt="Highcom" draggable="false" />
-  </a>
-  <a href="https://www.google.com/maps/search/Nanoglou+Radiateurs+Marseille" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-NANOGLOU.png" alt="Nanoglou" class="logo-small" draggable="false" />
-  </a>
-  <a href="https://www.groupe-maurin.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-groupe-MAURIN.png" alt="Groupe Maurin" draggable="false" />
-  </a>
-  <a href="https://www.speedy.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-SPEEDY.png" alt="Speedy" draggable="false" />
-  </a>
-  <a href="https://www.agencedusport.fr/" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-agence-nationale-du-sport.png" alt="Agence Nationale du Sport" draggable="false" />
-  </a>
-  <a href="https://www.tripadvisor.fr/Restaurant_Review-g187253-d4010930-Reviews-Les_Terrasses_de_St_Mitre-Marseille_Bouches_du_Rhone_Provence_Alpes_Cote_d_Azur.html" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-terrasses-saint-mitre.png" alt="Terrasses Saint-Mitre" draggable="false" />
-  </a>
-  <a href="https://www.cornilleau.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/Logo-CORNILLEAU.png" alt="Cornilleau" draggable="false" />
-  </a>
-  <a href="https://www.silver-equipment.com" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-SILVER-EQUIPMENT.jpg" alt="Silver Equipment" draggable="false" />
-  </a>
-  <a href="https://www.tennisdetableregionsud.fr/index.php/accueil/general/:infos" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo_liguepaca.jpg" alt="Ligue PACA" draggable="false" />
-  </a>
-  <a href="https://www.cd13tt.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-cd13tt.png" alt="CD13TT" draggable="false" />
-  </a>
-  <a href="https://www.maregionsud.fr" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/LOGO-région-SUD.jpg" alt="Région Sud" draggable="false" />
-  </a>
-  <a href="https://www.gewo-tt.com/en/" target="_blank" rel="noopener noreferrer" @click="onPartnerClick">
-    <img src="/images/logo-gewo.png" alt="Gewo" draggable="false" />
-  </a>
-</div>
-    </div>
-  </div>
-</section>
-
+    <!-- PARTENAIRES -->
+    <section class="section section-white partenaires">
+      <div class="section-inner-full">
+        <h2 style="text-align:center; margin-bottom:2.5rem;">
+          Nos partenaires
+        </h2>
+        <div
+          class="partners-viewport"
+          @mousedown="onDragStart"
+          @mousemove="onDragMove"
+          @mouseup="onDragEnd"
+          @mouseleave="onDragEnd"
+          @touchstart="onDragStart"
+          @touchmove="onDragMove"
+          @touchend="onDragEnd"
+        >
+          <div
+            ref="partnerTrack"
+            class="partners-track"
+          >
+            <a
+              href="https://www.departement13.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-département-13.png"
+                alt="Département 13"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.marseille.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-ville-de-marseille.jpg"
+                alt="Ville de Marseille"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.fftt.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-fftt.jpg"
+                alt="FFTT"
+                class="logo-large"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://high-com.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-HIGHCOM.png"
+                alt="Highcom"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.google.com/maps/search/Nanoglou+Radiateurs+Marseille"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-NANOGLOU.png"
+                alt="Nanoglou"
+                class="logo-small"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.groupe-maurin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-groupe-MAURIN.png"
+                alt="Groupe Maurin"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.speedy.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-SPEEDY.png"
+                alt="Speedy"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.agencedusport.fr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-agence-nationale-du-sport.png"
+                alt="Agence Nationale du Sport"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.tripadvisor.fr/Restaurant_Review-g187253-d4010930-Reviews-Les_Terrasses_de_St_Mitre-Marseille_Bouches_du_Rhone_Provence_Alpes_Cote_d_Azur.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-terrasses-saint-mitre.png"
+                alt="Terrasses Saint-Mitre"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.cornilleau.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-CORNILLEAU.png"
+                alt="Cornilleau"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.silver-equipment.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-SILVER-EQUIPMENT.jpg"
+                alt="Silver Equipment"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.tennisdetableregionsud.fr/index.php/accueil/general/:infos"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo_liguepaca.jpg"
+                alt="Ligue PACA"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.cd13tt.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-cd13tt.png"
+                alt="CD13TT"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.maregionsud.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/LOGO-région-SUD.jpg"
+                alt="Région Sud"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.gewo-tt.com/en/"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-gewo.png"
+                alt="Gewo"
+                draggable="false"
+              >
+            </a>
+            <!-- Duplication pour boucle -->
+            <a
+              href="https://www.departement13.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-département-13.png"
+                alt="Département 13"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.marseille.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-ville-de-marseille.jpg"
+                alt="Ville de Marseille"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.fftt.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-fftt.jpg"
+                alt="FFTT"
+                class="logo-large"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://high-com.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-HIGHCOM.png"
+                alt="Highcom"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.google.com/maps/search/Nanoglou+Radiateurs+Marseille"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-NANOGLOU.png"
+                alt="Nanoglou"
+                class="logo-small"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.groupe-maurin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-groupe-MAURIN.png"
+                alt="Groupe Maurin"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.speedy.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-SPEEDY.png"
+                alt="Speedy"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.agencedusport.fr/"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-agence-nationale-du-sport.png"
+                alt="Agence Nationale du Sport"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.tripadvisor.fr/Restaurant_Review-g187253-d4010930-Reviews-Les_Terrasses_de_St_Mitre-Marseille_Bouches_du_Rhone_Provence_Alpes_Cote_d_Azur.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-terrasses-saint-mitre.png"
+                alt="Terrasses Saint-Mitre"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.cornilleau.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/Logo-CORNILLEAU.png"
+                alt="Cornilleau"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.silver-equipment.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-SILVER-EQUIPMENT.jpg"
+                alt="Silver Equipment"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.tennisdetableregionsud.fr/index.php/accueil/general/:infos"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo_liguepaca.jpg"
+                alt="Ligue PACA"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.cd13tt.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-cd13tt.png"
+                alt="CD13TT"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.maregionsud.fr"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/LOGO-région-SUD.jpg"
+                alt="Région Sud"
+                draggable="false"
+              >
+            </a>
+            <a
+              href="https://www.gewo-tt.com/en/"
+              target="_blank"
+              rel="noopener noreferrer"
+              @click="onPartnerClick"
+            >
+              <img
+                src="/images/logo-gewo.png"
+                alt="Gewo"
+                draggable="false"
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
-
 :global(html),
 :global(body) {
   overflow-x: hidden;

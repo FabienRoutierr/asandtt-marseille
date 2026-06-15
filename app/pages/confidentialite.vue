@@ -37,7 +37,13 @@
         <p>Pour exercer ces droits, contactez-nous à l'adresse : <a href="mailto:contact.asandtt.marseille@gmail.com">contact.asandtt.marseille@gmail.com</a></p>
 
         <h2>Réclamation</h2>
-        <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la <strong>CNIL</strong> : <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">www.cnil.fr</a></p>
+        <p>
+          Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la <strong>CNIL</strong> : <a
+            href="https://www.cnil.fr"
+            target="_blank"
+            rel="noopener noreferrer"
+          >www.cnil.fr</a>
+        </p>
 
         <h2>Mise à jour</h2>
         <p>Cette politique de confidentialité a été mise à jour le <strong>11 juin 2026</strong>.</p>
@@ -50,7 +56,7 @@
 definePageMeta({ layout: 'default' })
 useSeoMeta({
   title: 'Politique de confidentialité — ASANDTT Marseille',
-  description: 'Politique de confidentialité et protection des données du site ASANDTT Marseille.',
+  description: 'Politique de confidentialité et protection des données du site ASANDTT Marseille.'
 })
 </script>
 

@@ -3,7 +3,7 @@ definePageMeta({ layout: 'default' })
 
 useSeoMeta({
   title: 'Compétitions — ASANDTT Marseille',
-  description: 'Le club numéro 1 de Marseille en compétition de tennis de table, du niveau départemental au national.',
+  description: 'Le club numéro 1 de Marseille en compétition de tennis de table, du niveau départemental au national.'
 })
 
 const topPlayers = [
@@ -15,19 +15,22 @@ const topPlayers = [
   { rank: 6, name: 'Pierre MONDON', detail: 'N° 6 de Marseille · Classé 18' },
   { rank: 7, name: 'Kelvin BEVILACQUA', detail: 'N° 7 de Marseille · Classé 17 · Formé à l\'ASAND' },
   { rank: 8, name: 'Alexandre ROUTIER', detail: 'Classé 16 · Formé à l\'ASAND' },
-  { rank: 9, name: 'Jean MOUTIN', detail: 'Classé 15 (ancien 18) · Formé à l\'ASAND' },
+  { rank: 9, name: 'Jean MOUTIN', detail: 'Classé 15 (ancien 18) · Formé à l\'ASAND' }
 ]
 </script>
 
 <template>
   <div>
-
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-overlay"></div>
-      <img src="/images/equipe_asand.jpeg" alt="Équipe 1 ASANDTT — National 3" class="hero-bg" />
+      <div class="hero-overlay" />
+      <img
+        src="/images/equipe_asand.jpeg"
+        alt="Équipe 1 ASANDTT — National 3"
+        class="hero-bg"
+      >
       <div class="hero-content">
-        <h1>La compétition<br/><strong>à tous les niveaux</strong></h1>
+        <h1>La compétition<br><strong>à tous les niveaux</strong></h1>
         <p>Le seul club de Marseille qui évolue au niveau national, avec 8 équipes du départemental au national.</p>
       </div>
     </section>
@@ -61,10 +64,18 @@ const topPlayers = [
     <section class="section section-grey">
       <div class="section-inner">
         <h2>Les mieux classés de Marseille</h2>
-        <p class="section-intro">Tous clubs confondus, l'ASAND domine le classement marseillais avec les meilleurs joueurs de la ville.</p>
+        <p class="section-intro">
+          Tous clubs confondus, l'ASAND domine le classement marseillais avec les meilleurs joueurs de la ville.
+        </p>
         <div class="players-grid">
-          <div v-for="player in topPlayers" :key="player.rank" class="player-card">
-            <div class="player-rank">#{{ player.rank }}</div>
+          <div
+            v-for="player in topPlayers"
+            :key="player.rank"
+            class="player-card"
+          >
+            <div class="player-rank">
+              #{{ player.rank }}
+            </div>
             <div class="player-info">
               <span class="player-name">{{ player.name }}</span>
               <span class="player-detail">{{ player.detail }}</span>
@@ -78,28 +89,36 @@ const topPlayers = [
     <section class="section section-white">
       <div class="section-inner jeunes-grid">
         <div class="jeunes-img">
-          <img src="/images/photo_club.jpeg" alt="Jeunes joueurs ASANDTT" />
+          <img
+            src="/images/photo_club.jpeg"
+            alt="Jeunes joueurs ASANDTT"
+          >
         </div>
         <div class="jeunes-text">
           <h2>Notre priorité : les jeunes talents</h2>
           <p>Les jeunes joueurs sont notre priorité au club de l'ASAND. Ils sont progressivement intégrés dans nos équipes avec les adultes pour accélérer leur progression.</p>
           <div class="jeune-highlight">
-            <div class="jeune-badge">N°1 U19 Marseille</div>
+            <div class="jeune-badge">
+              N°1 U19 Marseille
+            </div>
             <div class="jeune-content">
               <strong>Lucas ROUTIER</strong> (17 ans) est n°1 de la ville de Marseille tous clubs confondus chez les moins de 19 ans. Il évolue au niveau national en individuel et avec notre équipe fanion.
             </div>
           </div>
           <div class="jeune-highlight">
-            <div class="jeune-badge">N°1 U15 Marseille</div>
+            <div class="jeune-badge">
+              N°1 U15 Marseille
+            </div>
             <div class="jeune-content">
               <strong>Raphael LAZARD</strong> (14 ans) vient de nous rejoindre. Il est également n°1 de la ville de Marseille tous clubs confondus chez les moins de 15 ans.
             </div>
           </div>
-          <p class="jeunes-coaching">Nos jeunes sont suivis lors des différentes compétitions par notre entraîneur <strong>Michel FRANQUEBALME</strong>, et par nos joueurs expérimentés qui viennent régulièrement aider au coaching.</p>
+          <p class="jeunes-coaching">
+            Nos jeunes sont suivis lors des différentes compétitions par notre entraîneur <strong>Michel FRANQUEBALME</strong>, et par nos joueurs expérimentés qui viennent régulièrement aider au coaching.
+          </p>
         </div>
       </div>
     </section>
-
   </div>
 </template>
 

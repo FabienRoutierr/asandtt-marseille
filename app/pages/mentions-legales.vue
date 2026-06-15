@@ -19,7 +19,13 @@
           <li><strong>Société :</strong> OVH SAS</li>
           <li><strong>Adresse :</strong> 2 rue Kellermann, 59100 Roubaix, France</li>
           <li><strong>Téléphone :</strong> 1007</li>
-          <li><strong>Site web :</strong> <a href="https://www.ovhcloud.com" target="_blank" rel="noopener noreferrer">www.ovhcloud.com</a></li>
+          <li>
+            <strong>Site web :</strong> <a
+              href="https://www.ovhcloud.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >www.ovhcloud.com</a>
+          </li>
         </ul>
 
         <h2>Propriété intellectuelle</h2>
@@ -39,7 +45,7 @@
 definePageMeta({ layout: 'default' })
 useSeoMeta({
   title: 'Mentions légales — ASANDTT Marseille',
-  description: 'Mentions légales du site de l\'association ASANDTT Marseille.',
+  description: 'Mentions légales du site de l\'association ASANDTT Marseille.'
 })
 </script>
 
